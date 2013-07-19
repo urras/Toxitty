@@ -1,0 +1,12 @@
+# Syntax
+syntax: glob
+
+# CMake
+build/
+
+# Tox Core
+core/
+
+# Config Files
+*.json
+
