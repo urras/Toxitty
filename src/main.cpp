@@ -7,22 +7,38 @@ int main(int argc, char *argv[])
 {
 	initscr();
 	raw();
-	keypad(stdscr, true);
+	keypad(stdscr, 0);
+	noecho();
 
-	int ch = 0;
+	printw(":: Toxitty v0.1\n");
+	printw(":: Type /help for more information.\n");
+
 	bool running = true;
+	keyHandler->addShortcut(126, [&running] { running = false; });
+
+	int h = 0, w = 0;
+	getmaxyx(stdscr, h, w);
+
+	int currentBuffer = 0;
+
+	std::string buffer;
+	int ch = 0;
 	while(running)
 	{
 		ch = getch();
-		if(ch == KEY_F(1))
+		if(!keyHandler->handle(ch))
 		{
-			printw("Exiting...\n");
-			running = false;
+			if(ch == 127 && buffer.length() > 0)
+				buffer.pop_back();
+			else if(ch >= 65 && ch <= 122)
+				buffer += (char) ch;
+			else if(ch == '\n')
+				buffer.clear();
 		}
-		else
-			printw("Key press recv.\n");
 
-		keyHandler->handle(ch);
+		mvprintw(h - 1, 0, "[Buffer #%d] [Nick] [Receiver] %s", currentBuffer, buffer.c_str());
+
+		clrtoeol();
 		refresh();
 	}
 

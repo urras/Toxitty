@@ -1,6 +1,6 @@
 #include "keyhandler.hpp"
 
-extern std::shared_ptr<KeyHandler> keyHandler(new KeyHandler());
+std::shared_ptr<KeyHandler> keyHandler(new KeyHandler());
 
 KeyHandler::KeyHandler()
 {
