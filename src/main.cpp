@@ -1,6 +1,8 @@
 #include <iostream>
 #include <ncurses.h>
 
+#include "keyhandler.hpp"
+
 int main(int argc, char *argv[])
 {
 	initscr();
@@ -20,6 +22,7 @@ int main(int argc, char *argv[])
 		else
 			printw("Key press recv.\n");
 
+		keyHandler->handle(ch);
 		refresh();
 	}
 

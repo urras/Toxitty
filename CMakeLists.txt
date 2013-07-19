@@ -1,7 +1,7 @@
 project(Toxitty)
 
-set(CMAKE_CXX_FLAGS "-Wall -Werror -std=c++11")
-set(src "src/main.cpp")
+set(CMAKE_CXX_FLAGS "-Wall -Werror -std=c++0x")
+set(src src/main.cpp src/keyhandler.cpp)
 set(libs "-lncursesw")
 
 add_executable(toxitty ${src})
