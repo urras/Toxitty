@@ -16,14 +16,14 @@ int main(int argc, char *argv[])
 	buffers->append(Buffers::CoreBuffer, "[#] Toxitty v0.1\n");
 	buffers->append(Buffers::CoreBuffer, "[#] Type /help for more information.\n");
 
-	commands->add("/help", Commands::help);
+	commands->add("help", Commands::help);
 
 	keyHandler->addShortcut(126, [&running] { running = false; });
 
 	int h = 0, w = 0;
 	getmaxyx(stdscr, h, w);
 
-	int currentBuffer = 1;
+	int currentBuffer = 0;
 
 	std::string input;
 	int ch = 0;
@@ -34,7 +34,7 @@ int main(int argc, char *argv[])
 		{
 			if(ch == 127 && input.length() > 0)
 				input.pop_back();
-			else if(ch >= 33 && ch <= 126)
+			else if(ch >= 32 && ch <= 126)
 				input += (char) ch;
 			else if(ch == '\n' && input.length() > 0)
 			{

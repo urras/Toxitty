@@ -15,7 +15,7 @@ class Commands
 		~Commands();
 
 		bool add(const std::string &command, std::function<void(const std::string &)> func);
-		bool execute(const std::string &command);
+		bool execute(std::string &data);
 
 		static void help(const std::string &data);
 
