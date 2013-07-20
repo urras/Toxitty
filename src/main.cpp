@@ -10,20 +10,22 @@ int main(int argc, char *argv[])
 	initscr();
 	raw();
 	noecho();
+	keypad(stdscr, 1);
 
 	bool running = true;
+	unsigned int currentBuffer = 0;
 
 	buffers->append(Buffers::CoreBuffer, "[#] Toxitty v0.1\n");
 	buffers->append(Buffers::CoreBuffer, "[#] Type /help for more information.\n");
 
 	commands->add("help", Commands::help);
 
-	keyHandler->addShortcut(126, [&running] { running = false; });
+	keyHandler->addShortcut(KEY_F(1), [&running] { running = false; });
+	keyHandler->addShortcut(KEY_LEFT, [&currentBuffer] { if(currentBuffer > 0) { --currentBuffer; clear(); } });
+	keyHandler->addShortcut(KEY_RIGHT, [&currentBuffer] { if(currentBuffer < Buffers::MaxBuffers - 1) { ++currentBuffer; clear(); } });
 
 	int h = 0, w = 0;
 	getmaxyx(stdscr, h, w);
-
-	int currentBuffer = 0;
 
 	std::string input;
 	int ch = 0;
@@ -32,7 +34,7 @@ int main(int argc, char *argv[])
 		ch = getch();
 		if(!keyHandler->handle(ch))
 		{
-			if(ch == 127 && input.length() > 0)
+			if(ch == KEY_BACKSPACE && input.length() > 0)
 				input.pop_back();
 			else if(ch >= 32 && ch <= 126)
 				input += (char) ch;
