@@ -27,33 +27,35 @@ int main(int argc, char *argv[])
 	keyHandler->addShortcut(KEY_RIGHT, [] { buffers->next(); clear(); });
 	keyHandler->addShortcut(KEY_RESIZE, [&h, &w] { getmaxyx(stdscr, h, w); clear(); });
 
-	std::string input;
-	int ch = 0;
+	std::string input[Buffers::MaxBuffers];
+	int ch = 0, currentBuffer = 0;
 	while(running)
 	{
 		ch = getch();
+		currentBuffer = buffers->getCurrent();
+
 		if(!keyHandler->handle(ch))
 		{
-			if(ch == KEY_BACKSPACE && input.length() > 0)
-				input.pop_back();
+			if(ch == KEY_BACKSPACE && input[currentBuffer].length() > 0)
+				input[currentBuffer].pop_back();
 			else if(ch >= 32 && ch <= 126)
-				input += (char) ch;
-			else if(ch == '\n' && input.length() > 0)
+				input[currentBuffer] += (char) ch;
+			else if(ch == '\n' && input[currentBuffer].length() > 0)
 			{
-				if(input[0] == '/')
+				if(input[currentBuffer][0] == '/')
 				{
-					if(!commands->execute(input))
-						buffers->append(Buffers::CoreBuffer, "[!] Unrecognized command: " + input + '\n');
+					if(!commands->execute(input[currentBuffer]))
+						buffers->append(Buffers::CoreBuffer, "[!] Unrecognized command: " + input[currentBuffer] + '\n');
 				}
 				else
-					buffers->append(buffers->getCurrent(), input + '\n');
+					buffers->append(currentBuffer, input[currentBuffer] + '\n');
 
-				input.clear();
+				input[currentBuffer].clear();
 			}
 		}
 
-		mvprintw(0, 0, "%s", buffers->getData(buffers->getCurrent()).c_str());
-		mvprintw(h - 1, 0, "[#%d] [Nick] [Receiver] %s", buffers->getCurrent(), input.c_str());
+		mvprintw(0, 0, "%s", buffers->getData(currentBuffer).c_str());
+		mvprintw(h - 1, 0, "[#%d] [Nick] [Receiver] %s\n", currentBuffer, input[currentBuffer].c_str());
 
 		clrtoeol();
 		refresh();
