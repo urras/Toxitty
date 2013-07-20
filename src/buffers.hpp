@@ -18,8 +18,13 @@ class Buffers
 		void erase(unsigned int buffer);
 		std::string getData(unsigned int buffer);
 
+		unsigned int getCurrent() const { return m_current; }
+		void prev();
+		void next();
+
 	private:
 		std::stringstream m_buffer[Buffers::MaxBuffers]; 
+		unsigned int m_current;
 };
 
 extern std::shared_ptr<Buffers> buffers;

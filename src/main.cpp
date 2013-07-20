@@ -12,8 +12,10 @@ int main(int argc, char *argv[])
 	noecho();
 	keypad(stdscr, 1);
 
+	int h = 0, w = 0;
+	getmaxyx(stdscr, h, w);
+
 	bool running = true;
-	unsigned int currentBuffer = 0;
 
 	buffers->append(Buffers::CoreBuffer, "[#] Toxitty v0.1\n");
 	buffers->append(Buffers::CoreBuffer, "[#] Type /help for more information.\n");
@@ -21,11 +23,9 @@ int main(int argc, char *argv[])
 	commands->add("help", Commands::help);
 
 	keyHandler->addShortcut(KEY_F(1), [&running] { running = false; });
-	keyHandler->addShortcut(KEY_LEFT, [&currentBuffer] { if(currentBuffer > 0) { --currentBuffer; clear(); } });
-	keyHandler->addShortcut(KEY_RIGHT, [&currentBuffer] { if(currentBuffer < Buffers::MaxBuffers - 1) { ++currentBuffer; clear(); } });
-
-	int h = 0, w = 0;
-	getmaxyx(stdscr, h, w);
+	keyHandler->addShortcut(KEY_LEFT, [] { buffers->prev(); clear(); });
+	keyHandler->addShortcut(KEY_RIGHT, [] { buffers->next(); clear(); });
+	keyHandler->addShortcut(KEY_RESIZE, [&h, &w] { getmaxyx(stdscr, h, w); clear(); });
 
 	std::string input;
 	int ch = 0;
@@ -46,14 +46,14 @@ int main(int argc, char *argv[])
 						buffers->append(Buffers::CoreBuffer, "[!] Unrecognized command: " + input + '\n');
 				}
 				else
-					buffers->append(currentBuffer, input + '\n');
+					buffers->append(buffers->getCurrent(), input + '\n');
 
 				input.clear();
 			}
 		}
 
-		mvprintw(0, 0, "%s", buffers->getData(currentBuffer).c_str());
-		mvprintw(h - 1, 0, "[#%d] [Nick] [Receiver] %s", currentBuffer, input.c_str());
+		mvprintw(0, 0, "%s", buffers->getData(buffers->getCurrent()).c_str());
+		mvprintw(h - 1, 0, "[#%d] [Nick] [Receiver] %s", buffers->getCurrent(), input.c_str());
 
 		clrtoeol();
 		refresh();

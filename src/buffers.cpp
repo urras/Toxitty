@@ -4,6 +4,7 @@ std::shared_ptr<Buffers> buffers(new Buffers());
 
 Buffers::Buffers()
 {
+	m_current = Buffers::CoreBuffer;
 }
 
 Buffers::~Buffers()
@@ -32,4 +33,16 @@ std::string Buffers::getData(unsigned int buffer)
 		return "";
 
 	return m_buffer[buffer].str();
+}
+
+void Buffers::prev()
+{
+	if(m_current > 0)
+		--m_current;
+}
+
+void Buffers::next()
+{
+	if(m_current < Buffers::MaxBuffers - 1)
+		++m_current;
 }
