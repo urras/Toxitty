@@ -39,7 +39,7 @@ bool Commands::execute(std::string &data)
 	return false;
 }
 
-void Commands::help(const std::string &data)
+void Commands::Help(const std::string &data)
 {
 	buffers->append(Buffers::CoreBuffer, "[#] Command /help executed, data: " + data);
 }

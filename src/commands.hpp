@@ -17,7 +17,7 @@ class Commands
 		bool add(const std::string &command, std::function<void(const std::string &)> func);
 		bool execute(std::string &data);
 
-		static void help(const std::string &data);
+		static void Help(const std::string &data);
 
 	private:
 		std::map<std::string, std::function<void(const std::string &)>> m_commands;
