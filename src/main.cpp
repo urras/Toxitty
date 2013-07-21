@@ -17,8 +17,8 @@ int main(int argc, char *argv[])
 
 	bool running = true;
 
-	buffers->append(Buffers::CoreBuffer, "[#] Toxitty v0.1\n");
-	buffers->append(Buffers::CoreBuffer, "[#] Type /help for more information.\n");
+	buffers->append(Buffers::CoreBuffer, "[#] Toxitty v0.1");
+	buffers->append(Buffers::CoreBuffer, "[#] Type /help for more information.");
 
 	commands->add("help", Commands::help);
 
@@ -45,10 +45,10 @@ int main(int argc, char *argv[])
 				if(input[currentBuffer][0] == '/')
 				{
 					if(!commands->execute(input[currentBuffer]))
-						buffers->append(Buffers::CoreBuffer, "[!] Unrecognized command: " + input[currentBuffer] + '\n');
+						buffers->append(Buffers::CoreBuffer, "[!] Unrecognized command: " + input[currentBuffer]);
 				}
 				else
-					buffers->append(currentBuffer, input[currentBuffer] + '\n');
+					buffers->append(currentBuffer, input[currentBuffer]);
 
 				input[currentBuffer].clear();
 			}

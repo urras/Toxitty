@@ -13,10 +13,13 @@ Buffers::~Buffers()
 
 void Buffers::append(unsigned int buffer, const std::string &data)
 {
-	if(buffer > Buffers::MaxBuffers)
+	if(buffer > Buffers::MaxBuffers || data.length() == 0)
 		return;
 
 	m_buffer[buffer] << data;
+
+	if(*(data.end() - 1) != '\n')
+		m_buffer[buffer] << '\n';
 }
 
 void Buffers::erase(unsigned int buffer)

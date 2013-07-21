@@ -41,6 +41,5 @@ bool Commands::execute(std::string &data)
 
 void Commands::help(const std::string &data)
 {
-	buffers->append(Buffers::CoreBuffer, "[#] Command /help executed, data: ");
-	buffers->append(Buffers::CoreBuffer, data + '\n');
+	buffers->append(Buffers::CoreBuffer, "[#] Command /help executed, data: " + data);
 }
