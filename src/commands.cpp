@@ -10,11 +10,11 @@ Commands::~Commands()
 {
 }
 
-bool Commands::add(const std::string &command, std::function<void(const std::string &)> func)
+bool Commands::add(const std::string &command, const std::string &description, std::function<void(const std::string &)> func)
 {
 	if(m_commands.find(command) == m_commands.end())
 	{
-		m_commands[command] = func;
+		m_commands[command] = Command(description, func);
 		return true;
 	}
 
@@ -26,13 +26,13 @@ bool Commands::execute(std::string &data)
 	std::size_t position = data.find(' ');
 	const std::string &command = (position != std::string::npos ? data.substr(1, position - 1) : data.substr(1));
 
-	std::map<std::string, std::function<void(const std::string &)>>::iterator it = m_commands.find(command);
+	std::map<std::string, Command>::iterator it = m_commands.find(command);
 	if(it != m_commands.end())
 	{
 		if(position != std::string::npos)
 			data = data.substr(position + 1);
 
-		(it->second)(data);
+		std::get<1>(it->second)(data);
 		return true;
 	}
 

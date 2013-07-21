@@ -1,4 +1,3 @@
-#include <iostream>
 #include <ncurses.h>
 
 #include "buffers.hpp"
@@ -20,7 +19,7 @@ int main(int argc, char *argv[])
 	buffers->append(Buffers::CoreBuffer, "[#] Toxitty v0.1");
 	buffers->append(Buffers::CoreBuffer, "[#] Type /help for more information.");
 
-	commands->add("help", Commands::Help);
+	commands->add("help", "Displays help contents.", Commands::Help);
 
 	keyHandler->addShortcut(KEY_F(1), [&running] { running = false; });
 	keyHandler->addShortcut(KEY_LEFT, [] { buffers->prev(); clear(); });
