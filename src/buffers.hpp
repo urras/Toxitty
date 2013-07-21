@@ -1,6 +1,8 @@
 #ifndef BUFFERS_HPP
 #define BUFFERS_HPP
 
+#include <cstdarg>
+#include <cstring>
 #include <memory>
 #include <string>
 #include <sstream>
@@ -15,7 +17,9 @@ class Buffers
 		~Buffers();
 
 		void append(unsigned int buffer, const std::string &data);
+		void appendf(unsigned int buffer, const char *format, ...);
 		void erase(unsigned int buffer);
+
 		std::string getData(unsigned int buffer);
 
 		unsigned int getCurrent() const { return m_current; }
@@ -23,7 +27,7 @@ class Buffers
 		void next();
 
 	private:
-		std::stringstream m_buffer[Buffers::MaxBuffers]; 
+		std::stringstream m_buffer[Buffers::MaxBuffers];
 		unsigned int m_current;
 };
 

@@ -22,6 +22,21 @@ void Buffers::append(unsigned int buffer, const std::string &data)
 		m_buffer[buffer] << '\n';
 }
 
+void Buffers::appendf(unsigned int buffer, const char *format, ...)
+{
+	if(buffer > Buffers::MaxBuffers || strlen(format) == 0)
+		return;
+
+	char data[1024];
+	va_list args;
+
+	va_start(args, format);
+	vsprintf(data, format, args);
+	va_end(args);
+
+	append(buffer, std::string(data));
+}
+
 void Buffers::erase(unsigned int buffer)
 {
 	if(buffer > Buffers::MaxBuffers)
