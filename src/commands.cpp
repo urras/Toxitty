@@ -43,3 +43,21 @@ void Commands::Help(const std::string &data)
 {
 	buffers->append(Buffers::CoreBuffer, "[#] Command /help executed, data: " + data);
 }
+
+void Commands::Buffer(const std::string &data)
+{
+	if(data == "prev")
+		buffers->prev();
+	else if(data == "next")
+		buffers->next();
+	else
+	{
+		unsigned int buffer = (unsigned long) atoi(data.c_str());
+		if(buffer < 0 || buffer > Buffers::MaxBuffers)
+			return;
+
+		buffers->setCurrent(buffer);
+	}
+}
+
+

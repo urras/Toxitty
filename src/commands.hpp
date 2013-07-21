@@ -21,6 +21,7 @@ class Commands
 		bool execute(std::string &data);
 
 		static void Help(const std::string &data);
+		static void Buffer(const std::string &data);
 
 	private:
 		std::map<std::string, Command> m_commands;

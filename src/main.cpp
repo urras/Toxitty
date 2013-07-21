@@ -20,6 +20,7 @@ int main(int argc, char *argv[])
 	buffers->append(Buffers::CoreBuffer, "[#] Type /help for more information.");
 
 	commands->add("help", "Displays help contents.", Commands::Help);
+	commands->add("buffer", "Manages buffer navigation.", Commands::Buffer);
 
 	keyHandler->addShortcut(KEY_F(1), [&running] { running = false; });
 	keyHandler->addShortcut(KEY_LEFT, [] { buffers->prev(); clear(); });
