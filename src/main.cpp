@@ -2,6 +2,7 @@
 #include "commands.hpp"
 #include "keyhandler.hpp"
 #include "interface.hpp"
+#include "input.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -20,7 +21,6 @@ int main(int argc, char *argv[])
 	keyHandler->addShortcut(KEY_RIGHT, [] { buffers->next(); clear(); });
 	keyHandler->addShortcut(KEY_RESIZE, [] { interface->onResize(); clear(); });
 
-	std::string input[Buffers::MaxBuffers];
 	int ch = 0, currentBuffer = 0;
 	while(running)
 	{
@@ -29,26 +29,26 @@ int main(int argc, char *argv[])
 
 		if(!keyHandler->handle(ch))
 		{
-			if(ch == KEY_BACKSPACE && input[currentBuffer].length() > 0)
-				input[currentBuffer].pop_back();
+			if(ch == KEY_BACKSPACE && input->data[currentBuffer].length() > 0)
+				input->data[currentBuffer].pop_back();
 			else if(ch >= 32 && ch <= 126)
-				input[currentBuffer] += (char) ch;
-			else if(ch == '\n' && input[currentBuffer].length() > 0)
+				input->data[currentBuffer] += (char) ch;
+			else if(ch == '\n' && input->data[currentBuffer].length() > 0)
 			{
-				if(input[currentBuffer][0] == '/')
+				if(input->data[currentBuffer][0] == '/')
 				{
-					if(!commands->execute(input[currentBuffer]))
-						buffers->append(Buffers::CoreBuffer, "[!] Unrecognized command: " + input[currentBuffer]);
+					if(!commands->execute(input->data[currentBuffer]))
+						buffers->append(Buffers::CoreBuffer, "[!] Unrecognized command: " + input->data[currentBuffer]);
 				}
 				else
-					buffers->append(currentBuffer, input[currentBuffer]);
+					buffers->append(currentBuffer, input->data[currentBuffer]);
 
-				input[currentBuffer].clear();
+				input->data[currentBuffer].clear();
 			}
 		}
 
 		mvprintw(0, 0, "%s", buffers->getData(currentBuffer).c_str());
-		mvprintw(interface->height - 1, 0, "[#%d] [Nick] [Receiver] %s\n", currentBuffer, input[currentBuffer].c_str());
+		mvprintw(interface->height - 1, 0, "[#%d] [Nick] [Receiver] %s\n", currentBuffer, input->data[currentBuffer].c_str());
 
 		interface->clr();
 	}
