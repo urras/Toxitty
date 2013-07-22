@@ -65,3 +65,17 @@ void Commands::Exit(const std::string &data)
 	(void) data;
 	interface->running = false;
 }
+
+void Commands::CommandsList(const std::string &data)
+{
+	(void) data;
+	buffers->append(Buffers::CoreBuffer, "[#] Available commands:");
+
+	std::map<std::string, Command> list;
+	commands->getCommands(list);
+
+	for(std::map<std::string, Command>::iterator it = list.begin(); it != list.end(); ++it)
+	{
+		buffers->appendf(Buffers::CoreBuffer, "\t%s\t\t\t\t%s", it->first.c_str(), std::get<0>(it->second).c_str());
+	}
+}

@@ -15,6 +15,7 @@ int main(int argc, char *argv[])
 	commands->add("buffer", "Manages buffer navigation.", Commands::Buffer);
 	commands->add("exit", "Exits the client.", Commands::Exit);
 	commands->add("quit", "Exits the client.", Commands::Exit);
+	commands->add("commands", "Lists available commands.", Commands::CommandsList);
 
 	keyHandler->addShortcut(KEY_F(1), [] { interface->running = false; });
 	keyHandler->addShortcut(KEY_LEFT, [] { buffers->prev(); clear(); });
