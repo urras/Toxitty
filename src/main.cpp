@@ -1,18 +1,11 @@
-#include <ncurses.h>
-
 #include "buffers.hpp"
 #include "commands.hpp"
 #include "keyhandler.hpp"
+#include "interface.hpp"
 
 int main(int argc, char *argv[])
 {
-	initscr();
-	raw();
-	noecho();
-	keypad(stdscr, 1);
-
-	int h = 0, w = 0;
-	getmaxyx(stdscr, h, w);
+	interface->init();
 
 	bool running = true;
 
@@ -25,7 +18,7 @@ int main(int argc, char *argv[])
 	keyHandler->addShortcut(KEY_F(1), [&running] { running = false; });
 	keyHandler->addShortcut(KEY_LEFT, [] { buffers->prev(); clear(); });
 	keyHandler->addShortcut(KEY_RIGHT, [] { buffers->next(); clear(); });
-	keyHandler->addShortcut(KEY_RESIZE, [&h, &w] { getmaxyx(stdscr, h, w); clear(); });
+	keyHandler->addShortcut(KEY_RESIZE, [] { interface->onResize(); clear(); });
 
 	std::string input[Buffers::MaxBuffers];
 	int ch = 0, currentBuffer = 0;
@@ -55,12 +48,11 @@ int main(int argc, char *argv[])
 		}
 
 		mvprintw(0, 0, "%s", buffers->getData(currentBuffer).c_str());
-		mvprintw(h - 1, 0, "[#%d] [Nick] [Receiver] %s\n", currentBuffer, input[currentBuffer].c_str());
+		mvprintw(interface->height - 1, 0, "[#%d] [Nick] [Receiver] %s\n", currentBuffer, input[currentBuffer].c_str());
 
-		clrtoeol();
-		refresh();
+		interface->clr();
 	}
 
-	endwin();
+	interface->end();
 	return 0;
 }
