@@ -1,6 +1,8 @@
 project(Toxitty)
 
-set(CMAKE_CXX_FLAGS "-Wall -Werror -std=c++0x -O0 -ggdb")
+set(CMAKE_CXX_FLAGS "-Wall -Werror -std=c++0")
+set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g")
+
 set(src src/main.cpp src/buffers.cpp src/callbacks.cpp src/commands.cpp src/interface.cpp src/keyhandler.cpp)
 set(libs "-lncursesw")
 
