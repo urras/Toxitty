@@ -8,21 +8,21 @@ int main(int argc, char *argv[])
 {
 	interface->init();
 
-	bool running = true;
-
 	buffers->append(Buffers::CoreBuffer, "[#] Toxitty v0.1");
 	buffers->append(Buffers::CoreBuffer, "[#] Type /help for more information.");
 
 	commands->add("help", "Displays help contents.", Commands::Help);
 	commands->add("buffer", "Manages buffer navigation.", Commands::Buffer);
+	commands->add("exit", "Exits the client.", Commands::Exit);
+	commands->add("quit", "Exits the client.", Commands::Exit);
 
-	keyHandler->addShortcut(KEY_F(1), [&running] { running = false; });
+	keyHandler->addShortcut(KEY_F(1), [] { interface->running = false; });
 	keyHandler->addShortcut(KEY_LEFT, [] { buffers->prev(); clear(); });
 	keyHandler->addShortcut(KEY_RIGHT, [] { buffers->next(); clear(); });
 	keyHandler->addShortcut(KEY_RESIZE, [] { interface->onResize(); clear(); });
 
 	int ch = 0, currentBuffer = 0;
-	while(running)
+	while(interface->running)
 	{
 		ch = getch();
 		currentBuffer = buffers->getCurrent();

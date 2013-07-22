@@ -6,6 +6,7 @@ Interface::Interface()
 {
 	width = 0;
 	height = 0;
+	running = false;
 }
 
 Interface::~Interface()
@@ -20,6 +21,8 @@ void Interface::init()
 	keypad(stdscr, 1);
 
 	getmaxyx(stdscr, height, width);
+
+	running = true;
 }
 
 void Interface::draw()

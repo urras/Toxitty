@@ -60,4 +60,8 @@ void Commands::Buffer(const std::string &data)
 	}
 }
 
-
+void Commands::Exit(const std::string &data)
+{
+	(void) data;
+	interface->running = false;
+}

@@ -8,6 +8,7 @@
 #include <tuple>
 
 #include "buffers.hpp"
+#include "interface.hpp"
 
 typedef std::tuple<std::string, std::function<void(const std::string &)>> Command;
 
@@ -22,6 +23,7 @@ class Commands
 
 		static void Help(const std::string &data);
 		static void Buffer(const std::string &data);
+		static void Exit(const std::string &data);
 
 	private:
 		std::map<std::string, Command> m_commands;

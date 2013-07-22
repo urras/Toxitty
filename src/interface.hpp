@@ -18,6 +18,7 @@ class Interface
 		void onResize();
 
 		int width, height;
+		bool running;
 };
 
 extern std::shared_ptr<Interface> interface;
