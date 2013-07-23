@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
 				else
 				{
 					if(currentBuffer == Buffers::CoreBuffer)
-						buffers->append(Buffers::CoreBuffer, "[!] You may only send commands to the core buffer.");
+						buffers->append(Buffers::CoreBuffer, "[!] You can only send commands to the core buffer.");
 					else
 						buffers->append(currentBuffer, input->data[currentBuffer]);
 				}
