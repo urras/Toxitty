@@ -24,7 +24,9 @@ int main(int argc, char *argv[])
 	keyHandler->addShortcut(KEY_RIGHT, [] { buffers->next(); clear(); });
 	keyHandler->addShortcut(KEY_RESIZE, [] { interface->onResize(); clear(); });
 
-	int ch = 0, currentBuffer = 0;
+	int ch = 0;
+	unsigned int currentBuffer = 0;
+
 	while(interface->running)
 	{
 		ch = getch();
@@ -44,7 +46,12 @@ int main(int argc, char *argv[])
 						buffers->append(Buffers::CoreBuffer, "[!] Unrecognized command: " + input->data[currentBuffer]);
 				}
 				else
-					buffers->append(currentBuffer, input->data[currentBuffer]);
+				{
+					if(currentBuffer == Buffers::CoreBuffer)
+						buffers->append(Buffers::CoreBuffer, "[!] You may only send commands to the core buffer.");
+					else
+						buffers->append(currentBuffer, input->data[currentBuffer]);
+				}
 
 				input->history[currentBuffer].push_back(input->data[currentBuffer]);
 				input->setPosHistory(currentBuffer, -1);
