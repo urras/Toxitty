@@ -18,6 +18,8 @@ int main(int argc, char *argv[])
 	commands->add("commands", "Lists available commands.", Commands::CommandsList);
 
 	keyHandler->addShortcut(KEY_F(1), [] { interface->running = false; });
+	keyHandler->addShortcut(KEY_UP, [] { input->prevHistory(buffers->getCurrent()); clear(); });
+	keyHandler->addShortcut(KEY_DOWN, [] { input->nextHistory(buffers->getCurrent()); clear(); });
 	keyHandler->addShortcut(KEY_LEFT, [] { buffers->prev(); clear(); });
 	keyHandler->addShortcut(KEY_RIGHT, [] { buffers->next(); clear(); });
 	keyHandler->addShortcut(KEY_RESIZE, [] { interface->onResize(); clear(); });
@@ -43,6 +45,9 @@ int main(int argc, char *argv[])
 				}
 				else
 					buffers->append(currentBuffer, input->data[currentBuffer]);
+
+				input->history[currentBuffer].push_back(input->data[currentBuffer]);
+				input->setPosHistory(currentBuffer, -1);
 
 				input->data[currentBuffer].clear();
 			}
