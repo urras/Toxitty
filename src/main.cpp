@@ -60,9 +60,7 @@ int main(int argc, char *argv[])
 			}
 		}
 
-		mvprintw(0, 0, "%s", buffers->getData(currentBuffer).c_str());
-		mvprintw(interface->height - 1, 0, "[#%d] [Nick] [Receiver] %s\n", currentBuffer, input->data[currentBuffer].c_str());
-
+		interface->draw();
 		interface->clr();
 	}
 

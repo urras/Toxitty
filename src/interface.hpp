@@ -4,6 +4,9 @@
 #include <ncurses.h>
 #include <memory>
 
+#include "buffers.hpp"
+#include "input.hpp"
+
 class Interface
 {
 	public:

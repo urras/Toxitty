@@ -27,6 +27,10 @@ void Interface::init()
 
 void Interface::draw()
 {
+	unsigned int currentBuffer = buffers->getCurrent();
+
+	mvprintw(0, 0, "%s", buffers->getData(currentBuffer).c_str());
+	mvprintw(height - 1, 0, "[#%d] [Nick] [Receiver] %s\n", currentBuffer, input->data[currentBuffer].c_str());
 }
 
 void Interface::clr()
