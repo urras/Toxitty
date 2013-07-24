@@ -76,6 +76,8 @@ void Commands::CommandsList(const std::string &data)
 
 	for(std::map<std::string, Command>::iterator it = list.begin(); it != list.end(); ++it)
 	{
-		buffers->appendf(Buffers::CoreBuffer, "\t%s\t\t\t\t%s", it->first.c_str(), std::get<0>(it->second).c_str());
+		std::stringstream command;
+		command << "    /" << std::left << std::setw(16) << std::setfill(' ') << it->first << ' ' << std::get<0>(it->second);
+		buffers->append(Buffers::CoreBuffer, command.str());
 	}
 }

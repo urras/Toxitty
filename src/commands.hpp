@@ -2,6 +2,7 @@
 #define COMMANDS_HPP
 
 #include <functional>
+#include <iomanip>
 #include <map>
 #include <memory>
 #include <string>
