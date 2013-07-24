@@ -7,11 +7,38 @@ Input::Input()
 	for(unsigned int i = 0; i < Buffers::MaxBuffers; ++i)
 	{
 		m_posHistory[i] = -1;
+		m_posCaret[i] = -1;
 	}
 }
 
 Input::~Input()
 {
+}
+
+void Input::prevCaret(unsigned int buffer)
+{
+	if(buffer < 0 || buffer > Buffers::MaxBuffers)
+		return;
+
+	if(data[buffer].size() == 0)
+		return;
+
+	if(m_posCaret[buffer] == -1)
+		m_posCaret[buffer] = data[buffer].length() - 1;
+	else
+		--m_posCaret[buffer];
+}
+
+void Input::nextCaret(unsigned int buffer)
+{
+	if(buffer < 0 || buffer > Buffers::MaxBuffers)
+		return;
+
+	if(data[buffer].size() == 0)
+		return;
+
+	if(m_posCaret[buffer] < (int) data[buffer].length() - 1)
+		++m_posCaret[buffer];
 }
 
 void Input::prevHistory(unsigned int buffer)
@@ -42,6 +69,22 @@ void Input::nextHistory(unsigned int buffer)
 		++m_posHistory[buffer];
 
 	data[buffer] = history[buffer].at(m_posHistory[buffer]);
+}
+
+int Input::getPosCaret(unsigned int buffer)
+{
+	if(buffer < 0 || buffer > Buffers::MaxBuffers)
+		return -1;
+
+	return m_posCaret[buffer];
+}
+
+void Input::setPosCaret(unsigned int buffer, int position)
+{
+	if(buffer < 0 || buffer > Buffers::MaxBuffers)
+		return;
+
+	m_posCaret[buffer] = position;
 }
 
 int Input::getPosHistory(unsigned int buffer)

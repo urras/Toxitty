@@ -20,8 +20,8 @@ int main(int argc, char *argv[])
 	keyHandler->addShortcut(KEY_F(1), [] { interface->running = false; });
 	keyHandler->addShortcut(KEY_UP, [] { input->prevHistory(buffers->getCurrent()); clear(); });
 	keyHandler->addShortcut(KEY_DOWN, [] { input->nextHistory(buffers->getCurrent()); clear(); });
-	keyHandler->addShortcut(KEY_LEFT, [] { buffers->prev(); clear(); });
-	keyHandler->addShortcut(KEY_RIGHT, [] { buffers->next(); clear(); });
+	keyHandler->addShortcut(KEY_LEFT, [] { input->prevCaret(buffers->getCurrent()); clear(); });
+	keyHandler->addShortcut(KEY_RIGHT, [] { input->nextCaret(buffers->getCurrent()); clear(); });
 	keyHandler->addShortcut(KEY_RESIZE, [] { interface->onResize(); clear(); });
 
 	int ch = 0;
@@ -37,7 +37,13 @@ int main(int argc, char *argv[])
 			if(ch == KEY_BACKSPACE && input->data[currentBuffer].length() > 0)
 				input->data[currentBuffer].pop_back();
 			else if(ch >= 32 && ch <= 126)
-				input->data[currentBuffer] += (char) ch;
+			{
+				int position = input->getPosCaret(currentBuffer);
+				if(position == -1)
+					input->data[currentBuffer] += (char) ch;
+				else
+					input->data[currentBuffer].insert(position, 1, (char) ch);
+			}
 			else if(ch == '\n' && input->data[currentBuffer].length() > 0)
 			{
 				if(input->data[currentBuffer][0] == '/')
@@ -55,6 +61,7 @@ int main(int argc, char *argv[])
 
 				input->history[currentBuffer].push_back(input->data[currentBuffer]);
 				input->setPosHistory(currentBuffer, -1);
+				input->setPosCaret(currentBuffer, -1);
 
 				input->data[currentBuffer].clear();
 			}

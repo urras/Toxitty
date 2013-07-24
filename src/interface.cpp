@@ -19,6 +19,7 @@ void Interface::init()
 	raw();
 	noecho();
 	keypad(stdscr, 1);
+	nodelay(stdscr, 1);
 
 	getmaxyx(stdscr, height, width);
 
@@ -27,10 +28,12 @@ void Interface::init()
 
 void Interface::draw()
 {
-	unsigned int currentBuffer = buffers->getCurrent();
+	unsigned int buffer = buffers->getCurrent();
+	int caret = input->getPosCaret(buffer);
+	(void) caret;
 
-	mvprintw(0, 0, "%s", buffers->getData(currentBuffer).c_str());
-	mvprintw(height - 1, 0, "[#%d] [Nick] [Receiver] %s\n", currentBuffer, input->data[currentBuffer].c_str());
+	mvprintw(0, 0, "%s", buffers->getData(buffer).c_str());
+	mvprintw(height - 1, 0, "[#%d] [Nick] [Receiver] %s\n", buffer, input->data[buffer].c_str());
 }
 
 void Interface::clr()
