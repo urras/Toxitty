@@ -4,8 +4,9 @@
 #include <cstdarg>
 #include <cstring>
 #include <memory>
+#include <curses.h>
 #include <string>
-#include <sstream>
+#include <vector>
 
 class Buffers
 {
@@ -20,7 +21,8 @@ class Buffers
 		void appendf(unsigned int buffer, const char *format, ...);
 		void erase(unsigned int buffer);
 
-		std::string getData(unsigned int buffer);
+		unsigned int getSize(unsigned int buffer);
+		std::string getData(unsigned int buffer, unsigned int position);
 
 		unsigned int getCurrent() const { return m_current; }
 		void setCurrent(unsigned int current) { if(current > 0 && current < Buffers::MaxBuffers) m_current = current; }
@@ -29,7 +31,7 @@ class Buffers
 		void next();
 
 	private:
-		std::stringstream m_buffer[Buffers::MaxBuffers];
+		std::vector<std::string> m_buffer[Buffers::MaxBuffers];
 		unsigned int m_current;
 };
 

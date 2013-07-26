@@ -16,10 +16,8 @@ void Buffers::append(unsigned int buffer, const std::string &data)
 	if(buffer > Buffers::MaxBuffers || data.length() == 0)
 		return;
 
-	m_buffer[buffer] << data;
-
-	if(*(data.end() - 1) != '\n')
-		m_buffer[buffer] << '\n';
+	m_buffer[buffer].push_back(data);
+	clear();
 }
 
 void Buffers::appendf(unsigned int buffer, const char *format, ...)
@@ -34,7 +32,8 @@ void Buffers::appendf(unsigned int buffer, const char *format, ...)
 	vsprintf(data, format, args);
 	va_end(args);
 
-	append(buffer, std::string(data));
+	m_buffer[buffer].push_back(data);
+	clear();
 }
 
 void Buffers::erase(unsigned int buffer)
@@ -45,12 +44,23 @@ void Buffers::erase(unsigned int buffer)
 	m_buffer[buffer].clear();
 }
 
-std::string Buffers::getData(unsigned int buffer)
+unsigned int Buffers::getSize(unsigned int buffer)
+{
+	if(buffer > Buffers::MaxBuffers)
+		return 0;
+
+	return m_buffer[buffer].size();
+}
+
+std::string Buffers::getData(unsigned int buffer, unsigned int position)
 {
 	if(buffer > Buffers::MaxBuffers)
 		return "";
 
-	return m_buffer[buffer].str();
+	if(position > m_buffer[buffer].size() - 1)
+		return "";
+
+	return m_buffer[buffer].at(position);
 }
 
 void Buffers::prev()
