@@ -50,6 +50,8 @@ void Commands::Buffer(const std::string &data)
 		buffers->prev();
 	else if(data == "next")
 		buffers->next();
+	else if(data == "clear")
+		buffers->erase(buffers->getCurrent());
 	else
 	{
 		unsigned int buffer = (unsigned long) atoi(data.c_str());

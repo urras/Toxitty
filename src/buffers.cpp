@@ -42,6 +42,7 @@ void Buffers::erase(unsigned int buffer)
 		return;
 
 	m_buffer[buffer].clear();
+	clear();
 }
 
 unsigned int Buffers::getSize(unsigned int buffer)
