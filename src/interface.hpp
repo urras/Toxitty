@@ -6,6 +6,7 @@
 
 #include "buffers.hpp"
 #include "input.hpp"
+#include "misc.hpp"
 
 class Interface
 {
