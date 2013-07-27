@@ -2,6 +2,7 @@
 #define MISC_HPP
 
 #include <ctime>
+#include <iomanip>
 #include <sstream>
 #include <string>
 
