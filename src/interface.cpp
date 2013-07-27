@@ -35,22 +35,27 @@ void Interface::draw()
 	unsigned int size = buffers->getSize(buffer);
 	if(size > 0)
 	{
-		if(size < (unsigned int) height)
+		int scroll = buffers->getScroll(buffer);
+		if(scroll == -1)
 		{
-			for(int i = 0; i < height; ++i)
+			if(size < (unsigned int) height)
 			{
-				mvprintw(i, 0, "%s\n", buffers->getData(buffer, i).c_str());
+				for(int i = 0; i < height; ++i)
+					mvprintw(i, 0, "%s\n", buffers->getData(buffer, i).c_str());
+			}
+			else
+			{
+				int start = size - height + 1;
+				int p = 0;
+				for(int i = start; i < (int) size; ++i, ++p)
+					mvprintw(p, 0, buffers->getData(buffer, i).c_str());
 			}
 		}
 		else
 		{
-			int start = size - height + 1;
 			int p = 0;
-			for(int i = start; i < (int) size; ++i)
-			{
+			for(int i = scroll; i < scroll + height; ++i, ++p)
 				mvprintw(p, 0, buffers->getData(buffer, i).c_str());
-				++p;
-			}
 		}
 	}
 

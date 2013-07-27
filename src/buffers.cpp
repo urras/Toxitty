@@ -5,6 +5,9 @@ std::shared_ptr<Buffers> buffers(new Buffers());
 Buffers::Buffers()
 {
 	m_current = Buffers::CoreBuffer;
+
+	for(unsigned int i = 0; i < Buffers::MaxBuffers; ++i)
+		m_scroll[i] = -1;
 }
 
 Buffers::~Buffers()
@@ -74,4 +77,24 @@ void Buffers::next()
 {
 	if(m_current < Buffers::MaxBuffers - 1)
 		++m_current;
+}
+
+void Buffers::prevScroll(unsigned int buffer)
+{
+	if(buffer > Buffers::MaxBuffers)
+		return;
+
+	if(m_scroll[buffer] > 0)
+		--m_scroll[buffer];
+}
+
+void Buffers::nextScroll(unsigned int buffer)
+{
+	if(buffer > Buffers::MaxBuffers)
+		return;
+
+	if(m_scroll[buffer] < (int) getSize(buffer) - 1)
+		++m_scroll[buffer];
+	else
+		m_scroll[buffer] = -1;
 }
