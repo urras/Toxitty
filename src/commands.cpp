@@ -54,12 +54,14 @@ void Commands::Buffer(const std::string &data)
 		buffers->erase(buffers->getCurrent());
 	else
 	{
-		unsigned int buffer = (unsigned long) atoi(data.c_str());
+		unsigned int buffer = (unsigned int) atoi(data.c_str());
 		if(buffer < 0 || buffer > Buffers::MaxBuffers)
 			return;
 
 		buffers->setCurrent(buffer);
 	}
+
+	clear();
 }
 
 void Commands::Exit(const std::string &data)

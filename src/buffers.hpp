@@ -25,7 +25,7 @@ class Buffers
 		std::string getData(unsigned int buffer, unsigned int position);
 
 		unsigned int getCurrent() const { return m_current; }
-		void setCurrent(unsigned int current) { if(current > 0 && current < Buffers::MaxBuffers) m_current = current; }
+		void setCurrent(unsigned int current) { if(current >= 0 && current < Buffers::MaxBuffers) m_current = current; }
 
 		void prev();
 		void next();
