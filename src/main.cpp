@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 				else
 					input->data[currentBuffer].insert(position, 1, (char) ch);
 			}
-			else if(ch == '\n' && input->data[currentBuffer].length() > 0)
+			else if((ch == '\n' || ch == KEY_ENTER) && input->data[currentBuffer].length() > 0)
 			{
 				if(input->data[currentBuffer][0] == '/')
 				{
