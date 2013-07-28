@@ -29,7 +29,7 @@ Features
 License
 =======
 
-Toxitty is released under GPLv3 license, you can find the complete license file in [doc/LICENSE.md](doc/LICENSE.md).
+Toxitty is released under GPLv3 license, you can find the complete license file in [doc/LICENSE](doc/LICENSE).
 
 Help
 ====
