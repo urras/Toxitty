@@ -37,14 +37,26 @@ int main(int argc, char *argv[])
 		if(!keyHandler->handle(ch))
 		{
 			if(ch == KEY_BACKSPACE && input->data[currentBuffer].length() > 0)
-				input->data[currentBuffer].pop_back();
+			{
+				int position = input->getPosCaret(currentBuffer);
+				if(position == -1)
+					input->data[currentBuffer].pop_back();
+				else
+				{
+					input->data[currentBuffer] = input->data[currentBuffer].erase(position - 1, 1);
+					input->setPosCaret(currentBuffer, position - 1);
+				}
+			}
 			else if(ch >= 32 && ch <= 126)
 			{
 				int position = input->getPosCaret(currentBuffer);
 				if(position == -1)
 					input->data[currentBuffer] += (char) ch;
 				else
+				{
 					input->data[currentBuffer].insert(position, 1, (char) ch);
+					input->setPosCaret(currentBuffer, position + 1);
+				}
 			}
 			else if((ch == '\n' || ch == KEY_ENTER) && input->data[currentBuffer].length() > 0)
 			{

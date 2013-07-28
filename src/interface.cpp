@@ -59,7 +59,7 @@ void Interface::draw()
 		}
 	}
 
-	mvprintw(height - 1, 0, "%s [#%d] [Nick] [Receiver] %s\n", getTime().c_str(), buffer, input->data[buffer].c_str());
+	mvprintw(height - 1, 0, "%s [#%d] (C:%d) [Nick] [Receiver] %s\n", getTime().c_str(), buffer, input->getPosCaret(buffer), input->data[buffer].c_str());
 }
 
 void Interface::clr()
