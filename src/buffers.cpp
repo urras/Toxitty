@@ -34,7 +34,7 @@ Buffers::~Buffers()
 
 void Buffers::append(unsigned int buffer, const std::string &data)
 {
-	if(buffer > Buffers::MaxBuffers || data.length() == 0)
+	if(buffer < 0 || buffer >= Buffers::MaxBuffers || data.length() == 0)
 		return;
 
 	m_buffer[buffer].push_back(data);
@@ -43,7 +43,7 @@ void Buffers::append(unsigned int buffer, const std::string &data)
 
 void Buffers::appendf(unsigned int buffer, const char *format, ...)
 {
-	if(buffer > Buffers::MaxBuffers || strlen(format) == 0)
+	if(buffer < 0 || buffer >= Buffers::MaxBuffers || strlen(format) == 0)
 		return;
 
 	char data[1024];
@@ -59,7 +59,7 @@ void Buffers::appendf(unsigned int buffer, const char *format, ...)
 
 void Buffers::erase(unsigned int buffer)
 {
-	if(buffer > Buffers::MaxBuffers)
+	if(buffer < 0 || buffer >= Buffers::MaxBuffers)
 		return;
 
 	m_buffer[buffer].clear();
@@ -68,7 +68,7 @@ void Buffers::erase(unsigned int buffer)
 
 unsigned int Buffers::getSize(unsigned int buffer)
 {
-	if(buffer > Buffers::MaxBuffers)
+	if(buffer < 0 || buffer >= Buffers::MaxBuffers)
 		return 0;
 
 	return m_buffer[buffer].size();
@@ -76,7 +76,7 @@ unsigned int Buffers::getSize(unsigned int buffer)
 
 std::string Buffers::getData(unsigned int buffer, unsigned int position)
 {
-	if(buffer > Buffers::MaxBuffers)
+	if(buffer < 0 || buffer >= Buffers::MaxBuffers)
 		return "";
 
 	if(position > m_buffer[buffer].size() - 1)
@@ -99,7 +99,7 @@ void Buffers::next()
 
 void Buffers::prevScroll(unsigned int buffer)
 {
-	if(buffer > Buffers::MaxBuffers)
+	if(buffer >= Buffers::MaxBuffers)
 		return;
 
 	if(m_scroll[buffer] > 0)
@@ -108,7 +108,7 @@ void Buffers::prevScroll(unsigned int buffer)
 
 void Buffers::nextScroll(unsigned int buffer)
 {
-	if(buffer > Buffers::MaxBuffers)
+	if(buffer >= Buffers::MaxBuffers)
 		return;
 
 	if(m_scroll[buffer] < (int) getSize(buffer) - 1)

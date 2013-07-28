@@ -35,7 +35,7 @@ Input::~Input()
 
 void Input::prevCaret(unsigned int buffer)
 {
-	if(buffer < 0 || buffer > Buffers::MaxBuffers)
+	if(buffer < 0 || buffer >= Buffers::MaxBuffers)
 		return;
 
 	if(data[buffer].size() == 0)
@@ -49,7 +49,7 @@ void Input::prevCaret(unsigned int buffer)
 
 void Input::nextCaret(unsigned int buffer)
 {
-	if(buffer < 0 || buffer > Buffers::MaxBuffers)
+	if(buffer < 0 || buffer >= Buffers::MaxBuffers)
 		return;
 
 	if(data[buffer].size() == 0)
@@ -61,7 +61,7 @@ void Input::nextCaret(unsigned int buffer)
 
 void Input::prevHistory(unsigned int buffer)
 {
-	if(buffer < 0 || buffer > Buffers::MaxBuffers)
+	if(buffer < 0 || buffer >= Buffers::MaxBuffers)
 		return;
 
 	if(history[buffer].size() == 0)
@@ -77,7 +77,7 @@ void Input::prevHistory(unsigned int buffer)
 
 void Input::nextHistory(unsigned int buffer)
 {
-	if(buffer < 0 || buffer > Buffers::MaxBuffers)
+	if(buffer < 0 || buffer >= Buffers::MaxBuffers)
 		return;
 
 	if(history[buffer].size() == 0)
@@ -91,7 +91,7 @@ void Input::nextHistory(unsigned int buffer)
 
 int Input::getPosCaret(unsigned int buffer)
 {
-	if(buffer < 0 || buffer > Buffers::MaxBuffers)
+	if(buffer < 0 || buffer >= Buffers::MaxBuffers)
 		return -1;
 
 	return m_posCaret[buffer];
@@ -99,7 +99,7 @@ int Input::getPosCaret(unsigned int buffer)
 
 void Input::setPosCaret(unsigned int buffer, int position)
 {
-	if(buffer < 0 || buffer > Buffers::MaxBuffers)
+	if(buffer < 0 || buffer >= Buffers::MaxBuffers)
 		return;
 
 	m_posCaret[buffer] = position;
@@ -107,7 +107,7 @@ void Input::setPosCaret(unsigned int buffer, int position)
 
 int Input::getPosHistory(unsigned int buffer)
 {
-	if(buffer < 0 || buffer > Buffers::MaxBuffers)
+	if(buffer < 0 || buffer >= Buffers::MaxBuffers)
 		return -1;
 
 	return m_posHistory[buffer];
@@ -115,7 +115,7 @@ int Input::getPosHistory(unsigned int buffer)
 
 void Input::setPosHistory(unsigned int buffer, int position)
 {
-	if(buffer < 0 || buffer > Buffers::MaxBuffers)
+	if(buffer < 0 || buffer >= Buffers::MaxBuffers)
 		return;
 
 	m_posHistory[buffer] = position;
