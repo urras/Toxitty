@@ -39,7 +39,7 @@ class Commands
 		~Commands();
 
 		bool add(const std::string &command, const std::string &description, std::function<void(const std::string &)> func);
-		bool execute(std::string &data);
+		bool execute(std::string data);
 
 		void getCommands(std::map<std::string, Command> &commands) { commands = m_commands; }
 

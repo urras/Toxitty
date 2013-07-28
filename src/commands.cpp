@@ -39,7 +39,7 @@ bool Commands::add(const std::string &command, const std::string &description, s
 	return false;
 }
 
-bool Commands::execute(std::string &data)
+bool Commands::execute(std::string data)
 {
 	std::size_t position = data.find(' ');
 	const std::string &command = (position != std::string::npos ? data.substr(1, position - 1) : data.substr(1));
