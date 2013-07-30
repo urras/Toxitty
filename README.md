@@ -9,7 +9,6 @@ Compiling
 * Compile and install [libsodium](https://github.com/jedisct1/libsodium).
 * Compile and install [JsonCpp](http://jsoncpp.sourceforge.net/).
 * Clone Toxitty.
-* Clone [Tox](https://github.com/irungentoo/ProjectTox-Core) and copy their core directory into /core.
 * `# cd Toxitty`
 * `# mkdir build`
 * `# cd build`
@@ -34,11 +33,11 @@ Toxitty is released under GPLv3 license, you can find the complete license file 
 Help
 ====
 
-You can find a simple FAQ in [doc/HELP.md](doc/HELP.md).
+You can find a simple FAQ in [doc/HELP](doc/HELP).
 
 Contribute
 ==========
 
-If you found a bug you can report it using our [issue tracker](https://github.com/diath/Toxitty/issues).
+If you found a bug you can report it using [issue tracker](https://github.com/diath/Toxitty/issues).
 
 If you want to contribute some code - fork my repository, commit your changes and send me a pull request!
