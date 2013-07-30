@@ -3,7 +3,7 @@ project(Toxitty)
 set(CMAKE_CXX_FLAGS "-Wall -Werror -std=c++0x")
 set(CMAKE_CXX_FLAGS_DEBUG "-O0 -g")
 
-set(src src/main.cpp src/buffers.cpp src/callbacks.cpp src/commands.cpp src/interface.cpp src/input.cpp src/keyhandler.cpp src/misc.cpp)
+set(src src/main.cpp src/buffers.cpp src/callbacks.cpp src/commands.cpp src/interface.cpp src/input.cpp src/keyhandler.cpp src/misc.cpp core/Messenger.c core/network.c)
 set(libs "-lncursesw")
 
 add_executable(toxitty ${src})
