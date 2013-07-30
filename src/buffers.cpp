@@ -38,6 +38,10 @@ void Buffers::append(unsigned int buffer, const std::string &data)
 		return;
 
 	m_buffer[buffer].push_back(data);
+
+	if(m_buffer[buffer].size() >= 500)
+		m_buffer[buffer].erase(m_buffer[buffer].begin());
+
 	clear();
 }
 
@@ -54,6 +58,10 @@ void Buffers::appendf(unsigned int buffer, const char *format, ...)
 	va_end(args);
 
 	m_buffer[buffer].push_back(data);
+
+	if(m_buffer[buffer].size() >= 500)
+		m_buffer[buffer].erase(m_buffer[buffer].begin());
+
 	clear();
 }
 
