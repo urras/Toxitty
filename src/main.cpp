@@ -92,6 +92,9 @@ int main(int argc, char *argv[])
 				}
 
 				input->history[currentBuffer].push_back(input->data[currentBuffer]);
+				if(input->history[currentBuffer].size() >= 500)
+					input->history[currentBuffer].erase(input->history[currentBuffer].begin());
+
 				input->setPosHistory(currentBuffer, -1);
 				input->setPosCaret(currentBuffer, -1);
 
