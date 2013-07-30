@@ -84,9 +84,14 @@ void Input::nextHistory(unsigned int buffer)
 		return;
 
 	if(m_posHistory[buffer] < (int) history[buffer].size() - 1)
+	{
 		++m_posHistory[buffer];
-
-	data[buffer] = history[buffer].at(m_posHistory[buffer]);
+		data[buffer] = history[buffer].at(m_posHistory[buffer]);
+	}
+	else
+	{
+		data[buffer] = "";
+	}
 }
 
 int Input::getPosCaret(unsigned int buffer)
