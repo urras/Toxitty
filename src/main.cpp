@@ -67,6 +67,12 @@ int main(int argc, char *argv[])
 					input->setPosCaret(currentBuffer, position - 1);
 				}
 			}
+			else if(ch == KEY_DC && input->data[currentBuffer].length() > 0)
+			{
+				int position = input->getPosCaret(currentBuffer);
+				if(position != -1)
+					input->data[currentBuffer] = input->data[currentBuffer].erase(position, 1);
+			}
 			else if(ch >= 32 && ch <= 126)
 			{
 				int position = input->getPosCaret(currentBuffer);
