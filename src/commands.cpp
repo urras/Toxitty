@@ -49,6 +49,8 @@ bool Commands::execute(std::string data)
 	{
 		if(position != std::string::npos)
 			data = data.substr(position + 1);
+		else
+			data = "";
 
 		std::get<1>(it->second)(data);
 		return true;
@@ -60,6 +62,7 @@ bool Commands::execute(std::string data)
 void Commands::Help(const std::string &data)
 {
 	buffers->append(Buffers::CoreBuffer, "[#] Command /help executed, data: " + data);
+	buffers->appendf(0, "Expected: 4, got: %d.", data.length());
 }
 
 void Commands::Buffer(const std::string &data)
