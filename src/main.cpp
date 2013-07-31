@@ -18,12 +18,14 @@
 
 #include "buffers.hpp"
 #include "commands.hpp"
+#include "config.hpp"
 #include "keyhandler.hpp"
 #include "interface.hpp"
 #include "input.hpp"
 
 int main(int argc, char *argv[])
 {
+	config->load();
 	interface->init();
 
 	buffers->append(Buffers::CoreBuffer, "[#] Toxitty v0.1");
@@ -107,5 +109,7 @@ int main(int argc, char *argv[])
 	}
 
 	interface->end();
+	config->save();
+
 	return 0;
 }
