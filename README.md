@@ -10,6 +10,7 @@ Compiling
 * Compile and install [JsonCpp](http://jsoncpp.sourceforge.net/).
 * Clone Toxitty.
 * `# cd Toxitty`
+* `# git submodule update --init`
 * `# mkdir build`
 * `# cd build`
 * `# cmake ..`
