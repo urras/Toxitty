@@ -10,7 +10,6 @@ Compiling
 * Compile and install [JsonCpp](http://jsoncpp.sourceforge.net/).
 * Clone Toxitty.
 * `# cd Toxitty`
-* `# git submodule update --init`
 * `# mkdir build`
 * `# cd build`
 * `# cmake ..`
@@ -42,3 +41,10 @@ Contribute
 If you found a bug you can report it using [issue tracker](https://github.com/diath/Toxitty/issues).
 
 If you want to contribute some code - fork my repository, commit your changes and send me a pull request!
+
+Troubleshooting
+===============
+* If you are getting a `json/reader.h: No such file or directory` error from make, try the following:
+`# sudo cp -R /usr/include/jsoncpp/json /usr/include/`
+* If you are getting a `Cannot find source file: tox/core/DHT.c` error from cmake, you haven't updated the submodule. 
+* Do: `# git submodule update --init`
