@@ -24,8 +24,13 @@
 #include <regex>
 #include <sstream>
 #include <string>
+#include <vector>
+
+typedef std::vector<std::string> StringVec;
 
 std::string getTime();
 bool verifyKey(const std::string &key);
+
+void split(StringVec &vector, const std::string &data, const std::string &separator);
 
 #endif

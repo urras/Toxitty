@@ -51,3 +51,16 @@ bool verifyKey(const std::string &key)
 
 	return true;
 }
+
+void split(StringVec &vector, const std::string &data, const std::string &separator)
+{
+	size_t start = 0, end = 0;
+
+	while((end = data.find(separator, start)) != std::string::npos)
+	{
+		vector.push_back(data.substr(start, end - start));
+		start = end + separator.size();
+	}
+
+	vector.push_back(data.substr(start));
+}
