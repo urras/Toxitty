@@ -21,9 +21,11 @@
 
 #include <ctime>
 #include <iomanip>
+#include <regex>
 #include <sstream>
 #include <string>
 
 std::string getTime();
+bool verifyKey(const std::string &key);
 
 #endif

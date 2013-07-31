@@ -27,3 +27,27 @@ std::string getTime()
 	stream << "[" << std::setw(2) << std::setfill('0') << timestamp->tm_hour << ":" << std::setw(2) << std::setfill('0') << timestamp->tm_min << "]";
 	return stream.str();
 }
+
+bool verifyKey(const std::string &key)
+{
+	if(key.length() != 64)
+		return false;
+
+	char value = 0;
+	for(int i = 0; i < 64; ++i)
+	{
+		value = key[i];
+		if(value >= '0' && value <= '9')
+			continue;
+
+		if(value >= 'A' && value <= 'F')
+			continue;
+
+		if(value >= 'a' && value <= 'f')
+			continue;
+
+		return false;
+	}
+
+	return true;
+}
