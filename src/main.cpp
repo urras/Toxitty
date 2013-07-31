@@ -40,8 +40,8 @@ int main(int argc, char *argv[])
 	keyHandler->addShortcut(KEY_DOWN, [] { input->nextHistory(buffers->getCurrent()); clear(); });
 	keyHandler->addShortcut(KEY_LEFT, [] { input->prevCaret(buffers->getCurrent()); clear(); });
 	keyHandler->addShortcut(KEY_RIGHT, [] { input->nextCaret(buffers->getCurrent()); clear(); });
-	keyHandler->addShortcut(KEY_PPAGE, [] { buffers->prevScroll(buffers->getCurrent()); clear(); });
-	keyHandler->addShortcut(KEY_NPAGE, [] { buffers->nextScroll(buffers->getCurrent()); clear(); });
+	keyHandler->addShortcut(KEY_PPAGE, [] { interface->onScrollUp(); clear(); });
+	keyHandler->addShortcut(KEY_NPAGE, [] { interface->onScrollDown(); clear(); });
 	keyHandler->addShortcut(KEY_RESIZE, [] { interface->onResize(); clear(); });
 
 	int ch = 0;

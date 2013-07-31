@@ -25,6 +25,11 @@ Interface::Interface()
 	width = 0;
 	height = 0;
 	running = false;
+
+	for (unsigned int i = 0; i < Buffers::MaxBuffers; ++i)
+	{
+		m_bufferScroll[i] = 0;
+	}
 }
 
 Interface::~Interface()
@@ -39,7 +44,7 @@ void Interface::init()
 	keypad(stdscr, 1);
 	nodelay(stdscr, 1);
 
-	getmaxyx(stdscr, height, width);
+	onResize();
 
 	running = true;
 }
@@ -50,30 +55,15 @@ void Interface::draw()
 	int caret = input->getPosCaret(buffer);
 	(void) caret;
 
-	unsigned int size = buffers->getSize(buffer);
-	if(size > 0)
+	// Draw the buffer's contents
+	int size = (int) buffers->getSize(buffer);
+	unsigned int from = size - bufferHeight - m_bufferScroll[buffer];
+	if (size > 0)
 	{
-		int scroll = buffers->getScroll(buffer);
-		if(scroll == -1)
+		int row = 0;
+		for (int i = from; i < size; ++i, ++row)
 		{
-			if(size < (unsigned int) height)
-			{
-				for(int i = 0; i < height; ++i)
-					mvprintw(i, 0, "%s\n", buffers->getData(buffer, i).c_str());
-			}
-			else
-			{
-				int start = size - height + 1;
-				int p = 0;
-				for(int i = start; i < (int) size; ++i, ++p)
-					mvprintw(p, 0, buffers->getData(buffer, i).c_str());
-			}
-		}
-		else
-		{
-			int p = 0;
-			for(int i = scroll; i < scroll + height; ++i, ++p)
-				mvprintw(p, 0, buffers->getData(buffer, i).c_str());
+			mvprintw(row, 0, buffers->getData(buffer, i).c_str());
 		}
 	}
 
@@ -94,4 +84,27 @@ void Interface::end()
 void Interface::onResize()
 {
 	getmaxyx(stdscr, height, width);
+	bufferHeight = height - 1;
+}
+
+void Interface::onScrollUp()
+{
+	unsigned int buffer = buffers->getCurrent();
+	int size = (int) buffers->getSize(buffer);
+	int offset = m_bufferScroll[buffer];
+
+	if (size > bufferHeight + offset)
+	{
+		++m_bufferScroll[buffer];
+	}
+}
+
+void Interface::onScrollDown()
+{
+	unsigned int buffer = buffers->getCurrent();
+	unsigned int offset = m_bufferScroll[buffer];
+	if (offset > 0)
+	{
+		--m_bufferScroll[buffer];
+	}
 }
