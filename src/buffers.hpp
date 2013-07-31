@@ -48,15 +48,9 @@ class Buffers
 		void prev();
 		void next();
 
-		int getScroll(unsigned int buffer) { if(buffer < Buffers::MaxBuffers) { return m_scroll[buffer]; } return -1; }
-
-		void prevScroll(unsigned int buffer);
-		void nextScroll(unsigned int buffer);
-
 	private:
 		std::vector<std::string> m_buffer[Buffers::MaxBuffers];
 		unsigned int m_current;
-		int m_scroll[Buffers::MaxBuffers];
 };
 
 extern std::shared_ptr<Buffers> buffers;

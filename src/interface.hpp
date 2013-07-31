@@ -37,10 +37,18 @@ class Interface
 		void clr();
 		void end();
 
+		void onScrollUp();
+		void onScrollDown();
 		void onResize();
 
-		int width, height;
+		int width, height, bufferHeight;
 		bool running;
+
+	private:
+		/**
+		 * Contains the offset of every buffer from the bottom.
+		 */
+		int m_bufferScroll[Buffers::MaxBuffers];
 };
 
 extern std::shared_ptr<Interface> interface;
