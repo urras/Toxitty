@@ -18,6 +18,8 @@
 
 #include "config.hpp"
 
+std::shared_ptr<Config> config(new Config());
+
 Config::Config()
 {
 }

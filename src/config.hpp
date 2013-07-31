@@ -22,6 +22,7 @@
 #include <cstdlib>
 #include <fstream>
 #include <map>
+#include <memory>
 #include <string>
 
 #include <jsoncpp/json/reader.h>
@@ -46,5 +47,7 @@ class Config
 	private:
 		std::map<std::string, std::string> m_values;
 };
+
+extern std::shared_ptr<Config> config;
 
 #endif
