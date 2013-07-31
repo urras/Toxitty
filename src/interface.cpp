@@ -43,6 +43,7 @@ void Interface::init()
 	noecho();
 	keypad(stdscr, 1);
 	nodelay(stdscr, 1);
+	curs_set(0);
 
 	onResize();
 
@@ -53,7 +54,6 @@ void Interface::draw()
 {
 	unsigned int buffer = buffers->getCurrent();
 	int caret = input->getPosCaret(buffer);
-	(void) caret;
 
 	// Draw the buffer's contents
 	int size = (int) buffers->getSize(buffer);
@@ -67,7 +67,40 @@ void Interface::draw()
 		}
 	}
 
-	mvprintw(height - 1, 0, "%s [#%d] [Nick] [Receiver] %s\n", getTime().c_str(), buffer, input->data[buffer].c_str());
+	// Draw the input bar.
+	std::string bar;
+	bar += getTime() + " ";
+	bar += "[#" + std::to_string(buffer) + "] ";
+	bar += "[Nick] ";
+	bar += "[Receiver] ";
+
+	if(caret == -1)
+	{
+		bar += input->data[buffer];
+		mvprintw(height - 1, 0, bar.c_str());
+
+		attron(A_REVERSE);
+		mvprintw(height - 1, bar.length(), " ");
+		attroff(A_REVERSE);
+	}
+	else
+	{
+		std::string first, second;
+		char character;
+
+		first = input->data[buffer].substr(0, caret);
+		second = input->data[buffer].substr(caret + 1);
+		character = input->data[buffer].at(caret);
+
+		mvprintw(height - 1, 0, bar.c_str());
+		mvprintw(height - 1, bar.length(), "%s", first.c_str());
+
+		attron(A_REVERSE);
+		mvprintw(height - 1, bar.length() + first.length(), "%c", character);
+		attroff(A_REVERSE);
+
+		mvprintw(height - 1, bar.length() + first.length() + 1, "%s", second.c_str());
+	}
 }
 
 void Interface::clr()
