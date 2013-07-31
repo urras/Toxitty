@@ -64,3 +64,17 @@ void split(StringVec &vector, const std::string &data, const std::string &separa
 
 	vector.push_back(data.substr(start));
 }
+
+std::string join(const StringVec &data, const std::string &separator)
+{
+	std::string ret;
+
+	for(auto str : data)
+	{
+		ret += str;
+		ret += separator;
+	}
+
+	ret.pop_back(); // FIXME: We assume operator is one character long.
+	return ret;
+}
