@@ -29,7 +29,7 @@
 class Buffers
 {
 	public:
-		static const unsigned int MaxBuffers = 20;
+		static const unsigned int MaxBuffers = 100;
 		static const unsigned int CoreBuffer = 0;
 
 		Buffers();
