@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
 				int position = input->getPosCaret(currentBuffer);
 				if(position == -1)
 					input->data[currentBuffer].pop_back();
-				else
+				else if(position > 0)
 				{
 					input->data[currentBuffer] = input->data[currentBuffer].erase(position - 1, 1);
 					input->setPosCaret(currentBuffer, position - 1);
@@ -71,7 +71,15 @@ int main(int argc, char *argv[])
 			{
 				int position = input->getPosCaret(currentBuffer);
 				if(position != -1)
-					input->data[currentBuffer] = input->data[currentBuffer].erase(position, 1);
+				{
+					if(position == (int) input->data[currentBuffer].size() - 1)
+					{
+						input->data[currentBuffer].pop_back();
+						input->setPosCaret(currentBuffer, position - 1);
+					}
+					else
+						input->data[currentBuffer] = input->data[currentBuffer].erase(position, 1);
+				}
 			}
 			else if(ch >= 32 && ch <= 126)
 			{

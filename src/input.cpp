@@ -43,7 +43,7 @@ void Input::prevCaret(unsigned int buffer)
 
 	if(m_posCaret[buffer] == -1)
 		m_posCaret[buffer] = data[buffer].length() - 1;
-	else
+	else if(m_posCaret[buffer] > 0)
 		--m_posCaret[buffer];
 }
 
@@ -55,8 +55,10 @@ void Input::nextCaret(unsigned int buffer)
 	if(data[buffer].size() == 0)
 		return;
 
-	if(m_posCaret[buffer] < (int) data[buffer].length() - 1)
+	if(m_posCaret[buffer] != -1 && m_posCaret[buffer] < (int) data[buffer].length() - 1)
 		++m_posCaret[buffer];
+	else
+		++m_posCaret[buffer] = -1;
 }
 
 void Input::prevHistory(unsigned int buffer)

@@ -58,10 +58,10 @@ void Interface::draw()
 	// Draw the buffer's contents
 	int size = (int) buffers->getSize(buffer);
 	unsigned int from = size - bufferHeight - m_bufferScroll[buffer];
-	if (size > 0)
+	if(size > 0)
 	{
 		int row = 0;
-		for (int i = from; i < size; ++i, ++row)
+		for(int i = from; i < size; ++i, ++row)
 		{
 			mvprintw(row, 0, buffers->getData(buffer, i).c_str());
 		}
@@ -126,7 +126,7 @@ void Interface::onScrollUp()
 	int size = (int) buffers->getSize(buffer);
 	int offset = m_bufferScroll[buffer];
 
-	if (size > bufferHeight + offset)
+	if(size > bufferHeight + offset)
 	{
 		++m_bufferScroll[buffer];
 	}
@@ -136,7 +136,7 @@ void Interface::onScrollDown()
 {
 	unsigned int buffer = buffers->getCurrent();
 	unsigned int offset = m_bufferScroll[buffer];
-	if (offset > 0)
+	if(offset > 0)
 	{
 		--m_bufferScroll[buffer];
 	}
