@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
 	commands->add("quit", "Exits the client.", Commands::Exit);
 	commands->add("commands", "Lists available commands.", Commands::CommandsList);
 
-	keyHandler->addShortcut(KEY_F(1), [] { interface->running = false; });
+	keyHandler->addShortcut(KEY_F(1), [] { core->setRunning(false); });
 	keyHandler->addShortcut(KEY_UP, [] { input->prevHistory(buffers->getCurrent()); clear(); });
 	keyHandler->addShortcut(KEY_DOWN, [] { input->nextHistory(buffers->getCurrent()); clear(); });
 	keyHandler->addShortcut(KEY_LEFT, [] { input->prevCaret(buffers->getCurrent()); clear(); });
@@ -50,7 +50,7 @@ int main(int argc, char *argv[])
 	int ch = 0;
 	unsigned int currentBuffer = 0;
 
-	while(interface->running)
+	while(core->isRunning())
 	{
 		ch = getch();
 		currentBuffer = buffers->getCurrent();

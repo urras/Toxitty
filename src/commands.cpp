@@ -88,7 +88,7 @@ void Commands::Buffer(const std::string &data)
 void Commands::Exit(const std::string &data)
 {
 	(void) data;
-	interface->running = false;
+	core->setRunning(false);
 }
 
 void Commands::CommandsList(const std::string &data)

@@ -28,6 +28,7 @@
 #include <tuple>
 
 #include "buffers.hpp"
+#include "core.hpp"
 #include "interface.hpp"
 
 typedef std::tuple<std::string, std::function<void(const std::string &)>> Command;
