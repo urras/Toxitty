@@ -19,6 +19,7 @@
 #include "buffers.hpp"
 #include "commands.hpp"
 #include "config.hpp"
+#include "core.hpp"
 #include "keyhandler.hpp"
 #include "interface.hpp"
 #include "input.hpp"
