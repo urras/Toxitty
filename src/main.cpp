@@ -47,6 +47,8 @@ int main(int argc, char *argv[])
 	keyHandler->addShortcut(KEY_NPAGE, [] { interface->onScrollDown(); clear(); });
 	keyHandler->addShortcut(KEY_RESIZE, [] { interface->onResize(); clear(); });
 
+	core->start();
+
 	int ch = 0;
 	unsigned int currentBuffer = 0;
 

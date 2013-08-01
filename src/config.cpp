@@ -34,6 +34,10 @@ bool Config::load()
 	Json::Value root;
 	Json::Reader reader;
 
+	m_values["dht.server"] = "82.196.108.252";
+	m_values["dht.port"] = "33445";
+	m_values["dht.key"] = "61C36EFBDFF953FEF6525282EA64FDB800FA744DECF89BA352C6AD1DD5AB1F0E";
+
 	if(!reader.parse(data, root))
 	{
 		buffers->append(Buffers::CoreBuffer, "[!] Failed to load the config file, using defaults.");

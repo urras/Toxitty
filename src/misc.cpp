@@ -78,3 +78,17 @@ std::string join(const StringVec &data, const std::string &separator)
 	ret.pop_back(); // FIXME: We assume operator is one character long.
 	return ret;
 }
+
+std::string hex2bin(const std::string &data)
+{
+	int bin = 0;
+	std::istringstream input(data);
+	input >> std::hex >> bin;
+	return std::to_string(bin);
+}
+
+std::string bin2hex(const std::string &data)
+{
+	std::string ret;
+	return ret;
+}

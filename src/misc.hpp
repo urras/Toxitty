@@ -34,4 +34,7 @@ bool verifyKey(const std::string &key);
 void split(StringVec &vector, const std::string &data, const std::string &separator);
 std::string join(const StringVec &data, const std::string &separator);
 
+std::string hex2bin(const std::string &data);
+std::string bin2hex(const std::string &data);
+
 #endif
