@@ -1,5 +1,5 @@
 #include "core.hpp"
-#include <iostream>
+
 std::shared_ptr<Core> core(new Core());
 
 Core::Core()
