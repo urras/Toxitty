@@ -20,28 +20,34 @@
 
 void Callbacks::FriendRequest(unsigned char *key, unsigned char *data, unsigned short length)
 {
-	(void) key;
-	(void) data;
-	(void) length;
+	int requests = core->getNumRequests();
+	core->setNumRequests(requests + 1);
+	core->addRequest(requests, key);
+
+	buffers->appendf(Buffers::CoreBuffer, "[#] New friend request received with message: %s", (char *) data);
+	buffers->appendf(Buffers::CoreBuffer, "[#] Accept with /accept %d.", requests);
 }
 
-void Callbacks::Message(unsigned char *key, unsigned char *data, unsigned short length)
+void Callbacks::Message(int id, unsigned char *data, unsigned short length)
 {
-	(void) key;
-	(void) data;
-	(void) length;
+	char name[MAX_NAME_LENGTH];
+	getname(id, (unsigned char *) name);
+
+	buffers->appendf(Buffers::CoreBuffer, "[#] <%s> %s", name, data);
 }
 
-void Callbacks::NickChange(unsigned char *key, unsigned char *data, unsigned short length)
+void Callbacks::NickChange(int id, unsigned char *data, unsigned short length)
 {
-	(void) key;
-	(void) data;
-	(void) length;
+	char name[MAX_NAME_LENGTH];
+	getname(id, (unsigned char *) name);
+
+	buffers->appendf(Buffers::CoreBuffer, "[#] %s is now known as %s.", name, data);
 }
 
-void Callbacks::StatusChange(unsigned char *key, unsigned char *data, unsigned short length)
+void Callbacks::StatusChange(int id, unsigned char *data, unsigned short length)
 {
-	(void) key;
-	(void) data;
-	(void) length;
+	char name[MAX_NAME_LENGTH];
+	getname(id, (unsigned char *) name);
+
+	buffers->appendf(Buffers::CoreBuffer, "[#] %s changed their status to %s", name, data);
 }

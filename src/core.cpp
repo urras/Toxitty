@@ -6,6 +6,8 @@ Core::Core()
 {
 	m_running = true;
 	m_connected = false;
+
+	m_numRequests = 0;
 }
 
 Core::~Core()
@@ -53,4 +55,14 @@ void Core::thread()
 		doMessenger();
 		boost::this_thread::sleep(boost::posix_time::milliseconds(1));
 	}
+}
+
+void Core::addRequest(int request, unsigned char *key)
+{
+	memcpy(m_requests[request], key, CLIENT_ID_SIZE);
+}
+
+void Core::acceptRequest(int request)
+{
+	m_addfriend_norequest(m_requests[request]);
 }

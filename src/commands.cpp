@@ -106,3 +106,15 @@ void Commands::CommandsList(const std::string &data)
 		buffers->append(Buffers::CoreBuffer, command.str());
 	}
 }
+
+void Commands::Accept(const std::string &data)
+{
+	int number = atoi(data.c_str());
+	if(number < 0 || number > (int) Core::MaxRequests)
+		buffers->append(Buffers::CoreBuffer, "[!] Invalid request number.");
+	else
+	{
+		core->acceptRequest(number);
+		buffers->append(Buffers::CoreBuffer, "[#] Friend request accepted.");
+	}
+}

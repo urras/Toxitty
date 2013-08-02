@@ -17,6 +17,7 @@
 */
 
 #include "buffers.hpp"
+#include "callbacks.hpp"
 #include "commands.hpp"
 #include "config.hpp"
 #include "core.hpp"
@@ -37,6 +38,7 @@ int main(int argc, char *argv[])
 	commands->add("exit", "Exits the client.", Commands::Exit);
 	commands->add("quit", "Exits the client.", Commands::Exit);
 	commands->add("commands", "Lists available commands.", Commands::CommandsList);
+	commands->add("accept", "Accepts a friend request.", Commands::Accept);
 
 	keyHandler->addShortcut(KEY_F(1), [] { core->setRunning(false); });
 	keyHandler->addShortcut(KEY_UP, [] { input->prevHistory(buffers->getCurrent()); clear(); });
@@ -46,6 +48,11 @@ int main(int argc, char *argv[])
 	keyHandler->addShortcut(KEY_PPAGE, [] { interface->onScrollUp(); clear(); });
 	keyHandler->addShortcut(KEY_NPAGE, [] { interface->onScrollDown(); clear(); });
 	keyHandler->addShortcut(KEY_RESIZE, [] { interface->onResize(); clear(); });
+
+	m_callback_friendrequest(Callbacks::FriendRequest);
+	m_callback_friendmessage(Callbacks::Message);
+	m_callback_namechange(Callbacks::NickChange);
+	m_callback_userstatus(Callbacks::StatusChange);
 
 	core->start();
 

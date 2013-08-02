@@ -19,6 +19,12 @@
 #ifndef CALLBACKS_HPP
 #define CALLBACKS_HPP
 
+#include "../tox/core/Messenger.h"
+#include "../tox/core/network.h"
+
+#include "buffers.hpp"
+#include "core.hpp"
+
 class Callbacks
 {
 	public:
@@ -26,9 +32,9 @@ class Callbacks
 		~Callbacks() = delete;
 
 		static void FriendRequest(unsigned char *key, unsigned char *data, unsigned short length);
-		static void Message(unsigned char *key, unsigned char *data, unsigned short length);
-		static void NickChange(unsigned char *key, unsigned char *data, unsigned short length);
-		static void StatusChange(unsigned char *key, unsigned char *data, unsigned short length);
+		static void Message(int id, unsigned char *data, unsigned short length);
+		static void NickChange(int id, unsigned char *data, unsigned short length);
+		static void StatusChange(int id, unsigned char *data, unsigned short length);
 };
 
 #endif
