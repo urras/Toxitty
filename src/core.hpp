@@ -2,6 +2,7 @@
 #define CORE_HPP
 
 #include <memory>
+#include <string>
 #include <boost/thread.hpp>
 
 #include "buffers.hpp"
@@ -25,6 +26,9 @@ class Core
 		bool isRunning() const { return m_running; }
 		void setRunning(bool running) { m_running = running; }
 
+		std::string getNick() const { return m_nick; }
+		void setNick(const std::string &nick) { m_nick = nick; }
+
 		int getNumRequests() const { return m_numRequests; }
 		void setNumRequests(int num) { m_numRequests = num; }
 
@@ -34,6 +38,8 @@ class Core
 	private:
 		bool m_running;
 		bool m_connected;
+
+		std::string m_nick;
 
 		int m_numRequests;
 		unsigned char m_requests[MaxRequests][CLIENT_ID_SIZE];

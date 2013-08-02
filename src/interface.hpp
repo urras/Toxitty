@@ -23,6 +23,7 @@
 #include <memory>
 
 #include "buffers.hpp"
+#include "core.hpp"
 #include "input.hpp"
 #include "misc.hpp"
 

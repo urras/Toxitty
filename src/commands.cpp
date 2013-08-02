@@ -144,6 +144,7 @@ void Commands::Status(const std::string &data)
 		char status[MAX_USERSTATUS_LENGTH];
 		strcpy(status, data.c_str());
 		m_set_userstatus((unsigned char *) status, data.length());
+		core->setNick(data.c_str());
 
 		buffers->appendf(Buffers::CoreBuffer, "[#] Status changed to %s.", status);
 	}

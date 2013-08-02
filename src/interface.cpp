@@ -17,6 +17,7 @@
 */
 
 #include "interface.hpp"
+#include "core.hpp"
 
 std::shared_ptr<Interface> interface(new Interface());
 
@@ -71,7 +72,7 @@ void Interface::draw()
 	std::string bar;
 	bar += getTime() + " ";
 	bar += "[#" + std::to_string(buffer) + "] ";
-	bar += "[Nick] ";
+	bar += "[" + core->getNick() + "] ";
 	bar += "[Receiver] ";
 
 	if(caret == -1)
