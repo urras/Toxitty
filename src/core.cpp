@@ -30,24 +30,27 @@ void Core::start()
 	{
 		data.ip.i = resolved;
 
-		DHT_bootstrap(data, (unsigned char *) config->getValue("dht.key").c_str());
-		// std::thread(std::bind(&Core::thread, this));
+		DHT_bootstrap(data, (unsigned char *) publicKeyToData(config->getValue("dht.key")).c_str());
+		boost::thread(boost::bind(&Core::thread, this));
 	}
 }
 
 void Core::thread()
 {
-	if(!m_connected && DHT_isconnected())
+	while(true)
 	{
-		m_connected = true;
-		buffers->append(Buffers::CoreBuffer, "[#] Connected to a DHT node.");
-	}
-	else if(m_connected && DHT_isconnected() == -1)
-	{
-		m_connected = false;
-		buffers->append(Buffers::CoreBuffer, "[!] Disconnected from a DHT node.");
-	}
+		if(!m_connected && DHT_isconnected())
+		{
+			m_connected = true;
+			buffers->append(Buffers::CoreBuffer, "[#] Connected to a DHT node.");
+		}
+		else if(m_connected && !DHT_isconnected())
+		{
+			m_connected = false;
+			buffers->append(Buffers::CoreBuffer, "[!] Disconnected from a DHT node.");
+		}
 
-	doMessenger();
-	std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		doMessenger();
+		boost::this_thread::sleep(boost::posix_time::milliseconds(1));
+	}
 }

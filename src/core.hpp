@@ -1,9 +1,8 @@
 #ifndef CORE_HPP
 #define CORE_HPP
 
-#include <chrono>
 #include <memory>
-#include <thread>
+#include <boost/thread.hpp>
 
 #include "buffers.hpp"
 #include "config.hpp"
