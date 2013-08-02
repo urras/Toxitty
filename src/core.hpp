@@ -29,7 +29,7 @@ class Core
 		void setNumRequests(int num) { m_numRequests = num; }
 
 		void addRequest(int request, unsigned char *key);
-		void acceptRequest(int request);
+		bool acceptRequest(int request);
 
 	private:
 		bool m_running;

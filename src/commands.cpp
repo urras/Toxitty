@@ -114,8 +114,10 @@ void Commands::Accept(const std::string &data)
 		buffers->append(Buffers::CoreBuffer, "[!] Invalid request number.");
 	else
 	{
-		core->acceptRequest(number);
-		buffers->append(Buffers::CoreBuffer, "[#] Friend request accepted.");
+		if(core->acceptRequest(number))
+			buffers->append(Buffers::CoreBuffer, "[#] Friend request accepted.");
+		else
+			buffers->append(Buffers::CoreBuffer, "[#] Failed to accept the friend request.");
 	}
 }
 

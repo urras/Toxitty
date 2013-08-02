@@ -62,7 +62,7 @@ void Core::addRequest(int request, unsigned char *key)
 	memcpy(m_requests[request], key, CLIENT_ID_SIZE);
 }
 
-void Core::acceptRequest(int request)
+bool Core::acceptRequest(int request)
 {
-	m_addfriend_norequest(m_requests[request]);
+	return (m_addfriend_norequest(m_requests[request]) != -1);
 }
