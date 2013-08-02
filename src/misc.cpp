@@ -130,7 +130,7 @@ std::string dataToPublicKey(const std::string &data)
 {
 	std::string ret;
 
-	if(data.length() != crypto_box_PUBLICKEYBYTES)
+	if(data.length() != crypto_box_PUBLICKEYBYTES * 2)
 		return ret;
 
 	char buffer[255];
@@ -143,11 +143,11 @@ std::string dataToPublicKey(const std::string &data)
 	return ret;
 }
 
-std::string dataToPublicKey(const std::string &data)
+std::string dataToPrivateKey(const std::string &data)
 {
 	std::string ret;
 
-	if(data.length() != crypto_box_SECRETKEYBYTES)
+	if(data.length() != crypto_box_SECRETKEYBYTES * 2)
 		return ret;
 
 	char buffer[255];
