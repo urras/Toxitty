@@ -8,6 +8,7 @@ Compiling
 =========
 * Compile and install [libsodium](https://github.com/jedisct1/libsodium).
 * Compile and install [JsonCpp](http://jsoncpp.sourceforge.net/).
+* Install `libboost-system-dev` and `libboost-thread-dev` libraries (they're available in the repositories on most distributions).
 * Clone Toxitty.
 * `# cd Toxitty`
 * `# git submodule update --init`
