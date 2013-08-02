@@ -42,7 +42,6 @@ int main(int argc, char *argv[])
 	commands->add("nick", "Changes your nick.", Commands::Nick);
 	commands->add("status", "Changes your status message.", Commands::Nick);
 
-	keyHandler->addShortcut(KEY_F(1), [] { core->setRunning(false); });
 	keyHandler->addShortcut(KEY_UP, [] { input->prevHistory(buffers->getCurrent()); clear(); });
 	keyHandler->addShortcut(KEY_DOWN, [] { input->nextHistory(buffers->getCurrent()); clear(); });
 	keyHandler->addShortcut(KEY_LEFT, [] { input->prevCaret(buffers->getCurrent()); clear(); });
