@@ -24,7 +24,7 @@ notifications:
 
   irc: 
     channels:
-      - "chat.freenode.net#Toxitty"
       - "irc.diath.net#lobby"
+      - "chat.freenode.net#Toxitty"
     on_success: always
     on_failure: always
