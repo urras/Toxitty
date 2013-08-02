@@ -1,4 +1,4 @@
-Toxitty
+Toxitty [![Build Status](https://travis-ci.org/diath/Toxitty.png?branch=master)](https://travis-ci.org/diath/Toxitty)
 =======
 
 Toxitty is an experimental CLI based client for Tox. It is written in C++ using the new features of C++11.
