@@ -17,6 +17,7 @@
 */
 
 #include "misc.hpp"
+	#include "buffers.hpp"
 
 std::string getTime()
 {
@@ -79,16 +80,83 @@ std::string join(const StringVec &data, const std::string &separator)
 	return ret;
 }
 
-std::string hex2bin(const std::string &data)
-{
-	int bin = 0;
-	std::istringstream input(data);
-	input >> std::hex >> bin;
-	return std::to_string(bin);
-}
-
-std::string bin2hex(const std::string &data)
+std::string publicKeyToData(const std::string &key)
 {
 	std::string ret;
+	const char *characters = key.c_str();
+	int i = 0, length = key.length();
+
+	if(length != crypto_box_PUBLICKEYBYTES * 2)
+		return ret;
+
+	char bytes[3] = {0, 0, 0};
+	unsigned char byte = 0;
+	while(i < length)
+	{
+		bytes[0] = characters[i++];
+		bytes[1] = characters[i++];
+
+		byte = strtoul(bytes, NULL, 16);
+		ret += byte;
+	}
+
+	return ret;
+}
+
+std::string privateKeyToData(const std::string &key)
+{
+	std::string ret;
+
+	const char *characters = key.c_str();
+	int i = 0, length = key.length();
+
+	if(length != crypto_box_SECRETKEYBYTES * 2)
+		return ret;
+
+	char bytes[3] = {0, 0, 0};
+	unsigned char byte = 0;
+	while(i < length)
+	{
+		bytes[0] = characters[i++];
+		bytes[1] = characters[i++];
+
+		byte = strtoul(bytes, NULL, 16);
+		ret += byte;
+	}
+
+	return ret;
+}
+
+std::string dataToPublicKey(const std::string &data)
+{
+	std::string ret;
+
+	if(data.length() != crypto_box_PUBLICKEYBYTES)
+		return ret;
+
+	char buffer[255];
+	for(unsigned int i = 0; i < crypto_box_PUBLICKEYBYTES; ++i)
+	{
+		sprintf(buffer, "%02X", static_cast<unsigned char>(data[i]));
+		ret += buffer;
+	}
+
+	return ret;
+}
+
+std::string dataToPublicKey(const std::string &data)
+{
+	std::string ret;
+
+	if(data.length() != crypto_box_SECRETKEYBYTES)
+		return ret;
+
+	char buffer[255];
+	for(unsigned int i = 0; i < crypto_box_SECRETKEYBYTES; ++i)
+	{
+		sprintf(buffer, "%02X", static_cast<unsigned char>(data[i]));
+		ret += buffer;
+	}
+
 	return ret;
 }

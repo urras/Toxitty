@@ -1,5 +1,5 @@
 #include "core.hpp"
-
+#include <iostream>
 std::shared_ptr<Core> core(new Core());
 
 Core::Core()
@@ -16,8 +16,6 @@ void Core::start()
 {
 	initMessenger();
 
-	buffers->appendf(Buffers::CoreBuffer, "[#] Your public key: %s", self_public_key);
-
 	IP_Port data;
 	data.port = htons(config->getIntValue("dht.port"));
 
@@ -30,7 +28,7 @@ void Core::start()
 	{
 		data.ip.i = resolved;
 
-		DHT_bootstrap(data, (unsigned char *) hex2bin(config->getValue("dht.key")).c_str());
+		DHT_bootstrap(data, (unsigned char *) config->getValue("dht.key").c_str());
 		// std::thread(std::bind(&Core::thread, this));
 	}
 }

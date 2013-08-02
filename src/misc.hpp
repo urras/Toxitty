@@ -26,6 +26,8 @@
 #include <string>
 #include <vector>
 
+#include "../tox/core/net_crypto.h"
+
 typedef std::vector<std::string> StringVec;
 
 std::string getTime();
@@ -34,7 +36,10 @@ bool verifyKey(const std::string &key);
 void split(StringVec &vector, const std::string &data, const std::string &separator);
 std::string join(const StringVec &data, const std::string &separator);
 
-std::string hex2bin(const std::string &data);
-std::string bin2hex(const std::string &data);
+std::string publicKeyToData(const std::string &key);
+std::string privateKeyToData(const std::string &key);
+
+std::string dataToPublicKey(const std::string &data);
+std::string dataToPrivateKey(const std::string &data);
 
 #endif
