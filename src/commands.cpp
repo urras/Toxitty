@@ -118,3 +118,17 @@ void Commands::Accept(const std::string &data)
 		buffers->append(Buffers::CoreBuffer, "[#] Friend request accepted.");
 	}
 }
+
+void Commands::Nick(const std::string &data)
+{
+	if(data.empty() || data.length() > MAX_NAME_LENGTH)
+		buffers->append(Buffers::CoreBuffer, "[!] Invalid nick length.");
+	else
+	{
+		char nick[MAX_NAME_LENGTH];
+		strcpy(nick, data.c_str());
+		setname((unsigned char *) nick, data.length());
+
+		buffers->appendf(Buffers::CoreBuffer, "[#] Nick changed to %s.", nick);
+	}
+}

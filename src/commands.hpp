@@ -49,6 +49,7 @@ class Commands
 		static void Exit(const std::string &data);
 		static void CommandsList(const std::string &data);
 		static void Accept(const std::string &data);
+		static void Nick(const std::string &data);
 
 	private:
 		std::map<std::string, Command> m_commands;
