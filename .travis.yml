@@ -3,20 +3,34 @@ compiler:
   - gcc
 
 before_script:
-  - git clone git://github.com/jedisct1/libsodium.git
-  - cd libsodium
-  - git checkout tags/0.4.2
-  - ./autogen.sh
-  - ./configure && make check -j3
-  - sudo make install
-  - cd ..
-  - sudo ldconfig
-  - sudo apt-get install libjsoncpp0 libjsoncpp-dev libboost-system1.53-dev libboost-thread1.53-dev lib32ncurses5 lib32ncurses5-dev
+  # gcc 4.7
   - sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
   - sudo apt-get -qq update
   - sudo apt-get -qq install g++-4.7
   - export CXX=g++-4.7
   - export CC=gcc-4.7
+
+  # install libsodium
+  - git clone git://github.com/jedisct1/libsodium.git
+  - cd libsodium
+  - git checkout tags/0.4.2
+  - ./autogen.sh
+  - ./configure
+  - sudo make install
+  - cd ..
+  - sudo ldconfig
+
+  # install a newer boost
+  - wget -O boost_1_54_0.tar.bz2 http://sourceforge.net/projects/boost/files/boost/1.54.0/boost_1_54_0.tar.bz2/download
+  - tar xjf boost_1_54_0.tar.bz2
+  - cd boost_1_54_0
+  - ./bootstrap.sh --prefix=/usr/ --with-libraries=system,thread
+  - sudo ./b2 install -d0 # -d0 for less verbosity
+  - cd ..
+  - sudo ldconfig
+
+  # install other dependencies
+  - sudo apt-get install libjsoncpp-dev lib32ncurses5-dev
 
 script:
   - mkdir build
@@ -29,7 +43,6 @@ notifications:
 
   irc: 
     channels:
-      - "irc.diath.net#lobby"
       - "chat.freenode.net#Toxitty"
     on_success: always
     on_failure: always
