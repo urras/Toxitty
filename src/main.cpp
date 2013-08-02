@@ -40,6 +40,7 @@ int main(int argc, char *argv[])
 	commands->add("commands", "Lists available commands.", Commands::CommandsList);
 	commands->add("accept", "Accepts a friend request.", Commands::Accept);
 	commands->add("nick", "Changes your nick.", Commands::Nick);
+	commands->add("status", "Changes your status message.", Commands::Nick);
 
 	keyHandler->addShortcut(KEY_F(1), [] { core->setRunning(false); });
 	keyHandler->addShortcut(KEY_UP, [] { input->prevHistory(buffers->getCurrent()); clear(); });

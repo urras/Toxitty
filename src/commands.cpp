@@ -132,3 +132,17 @@ void Commands::Nick(const std::string &data)
 		buffers->appendf(Buffers::CoreBuffer, "[#] Nick changed to %s.", nick);
 	}
 }
+
+void Commands::Status(const std::string &data)
+{
+	if(data.empty() || data.length() > MAX_USERSTATUS_LENGTH)
+		buffers->append(Buffers::CoreBuffer, "[!] Invalid status length.");
+	else
+	{
+		char status[MAX_USERSTATUS_LENGTH];
+		strcpy(status, data.c_str());
+		m_set_userstatus((unsigned char *) status, data.length());
+
+		buffers->appendf(Buffers::CoreBuffer, "[#] Status changed to %s.", status);
+	}
+}
