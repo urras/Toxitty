@@ -69,13 +69,15 @@ std::string join(const StringVec &data, const std::string &separator)
 {
 	std::string ret;
 
-	for(auto str : data)
+	for(const auto &str : data)
 	{
 		ret += str;
 		ret += separator;
 	}
 
-	ret.pop_back(); // FIXME: We assume operator is one character long.
+	for(size_t i = 0; i < separator.length(); ++i)
+		ret.pop_back();
+
 	return ret;
 }
 
