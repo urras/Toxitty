@@ -107,6 +107,41 @@ void Commands::CommandsList(const std::string &data)
 	}
 }
 
+void Commands::Add(const std::string &data)
+{
+	if(data.empty() || data.length() > crypto_box_PUBLICKEYBYTES * 2 || !verifyKey(data))
+		buffers->append(Buffers::CoreBuffer, "[!] Invalid public key.");
+	else
+	{
+		int ret = m_addfriend((unsigned char *) publicKeyToData(data).c_str(), (unsigned char *) "Test", 5);
+		switch(ret)
+		{
+			case FAERR_TOOLONG:
+				buffers->appendf(Buffers::CoreBuffer, "[!] Request message too long (this shouldn't happen) (%d).",MAX_DATA_SIZE - crypto_box_PUBLICKEYBYTES - crypto_box_NONCEBYTES - crypto_box_BOXZEROBYTES + crypto_box_ZEROBYTES);
+			break;
+
+			case FAERR_NOMESSAGE:
+				buffers->append(Buffers::CoreBuffer, "[!] Missing request message (this shouldn't happen).");
+			break;
+
+			case FAERR_OWNKEY:
+				buffers->append(Buffers::CoreBuffer, "[!] Can not send a friend request to yourself.");
+			break;
+
+			case FAERR_ALREADYSENT:
+				buffers->append(Buffers::CoreBuffer, "[!] Friend request already sent.");
+			break;
+
+			case FAERR_UNKNOWN:
+				buffers->append(Buffers::CoreBuffer, "[!] Unknown error occured while sending a friend request.");
+			break;
+
+			default:
+				buffers->appendf(Buffers::CoreBuffer, "[#] Friend added as %d.", ret);
+		}
+	}
+}
+
 void Commands::Accept(const std::string &data)
 {
 	int number = atoi(data.c_str());

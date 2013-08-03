@@ -38,6 +38,7 @@ int main(int argc, char *argv[])
 	commands->add("exit", "Exits the client.", Commands::Exit);
 	commands->add("quit", "Exits the client.", Commands::Exit);
 	commands->add("commands", "Lists available commands.", Commands::CommandsList);
+	commands->add("add", "Sends a friend request.", Commands::Add);
 	commands->add("accept", "Accepts a friend request.", Commands::Accept);
 	commands->add("nick", "Changes your nick.", Commands::Nick);
 	commands->add("status", "Changes your status message.", Commands::Status);

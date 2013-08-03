@@ -31,6 +31,8 @@
 #include "core.hpp"
 #include "interface.hpp"
 
+#include "../tox/core/Messenger.h"
+
 typedef std::tuple<std::string, std::function<void(const std::string &)>> Command;
 
 class Commands
@@ -48,6 +50,7 @@ class Commands
 		static void Buffer(const std::string &data);
 		static void Exit(const std::string &data);
 		static void CommandsList(const std::string &data);
+		static void Add(const std::string &add);
 		static void Accept(const std::string &data);
 		static void Nick(const std::string &data);
 		static void Status(const std::string &data);
