@@ -164,7 +164,7 @@ void Commands::Nick(const std::string &data)
 	{
 		char nick[MAX_NAME_LENGTH];
 		strcpy(nick, data.c_str());
-		setname((unsigned char *) nick, data.length());
+		setname((unsigned char *) nick, data.length() + 1);
 
 		core->setNick(data);
 		config->setValue("nick", data);
@@ -181,7 +181,7 @@ void Commands::Status(const std::string &data)
 	{
 		char status[MAX_USERSTATUS_LENGTH];
 		strcpy(status, data.c_str());
-		m_set_userstatus((unsigned char *) status, data.length());
+		m_set_userstatus((unsigned char *) status, data.length() + 1);
 
 		core->setStatus(data);
 		config->setValue("status", data);
