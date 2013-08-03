@@ -11,7 +11,7 @@ before_script:
   - export CC=gcc-4.7
 
   # install libsodium and libboost
-  - wget https://www.dropbox.com/s/28gza6zwbc8nnd5/toxitty-libs-ubuntu-12-04-x64.tar.bz2 /tmp/toxitty-libs-ubuntu-12-04-x64.tar.bz2
+  - wget https://www.dropbox.com/s/28gza6zwbc8nnd5/toxitty-libs-ubuntu-12-04-x64.tar.bz2 -O /tmp/toxitty-libs-ubuntu-12-04-x64.tar.bz2
   - sudo tar xjf /tmp/toxitty-libs-ubuntu-12-04-x64.tar.bz2 -C /
   - sudo ldconfig
 
