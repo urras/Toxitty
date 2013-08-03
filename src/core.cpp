@@ -39,7 +39,7 @@ void Core::start()
 
 void Core::thread()
 {
-	while(true)
+	while(m_running)
 	{
 		if(!m_connected && DHT_isconnected())
 		{
