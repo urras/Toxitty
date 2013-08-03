@@ -130,7 +130,9 @@ void Commands::Nick(const std::string &data)
 		char nick[MAX_NAME_LENGTH];
 		strcpy(nick, data.c_str());
 		setname((unsigned char *) nick, data.length());
+
 		core->setNick(data.c_str());
+		config->setValue("nick", data);
 
 		buffers->appendf(Buffers::CoreBuffer, "[#] Nick changed to %s.", nick);
 	}

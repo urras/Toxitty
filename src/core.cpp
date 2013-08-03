@@ -44,6 +44,11 @@ void Core::thread()
 		if(!m_connected && DHT_isconnected())
 		{
 			m_connected = true;
+
+			std::string nick = config->getValue("nick");
+			setname((unsigned char *) nick.c_str(), nick.length());
+			core->setNick(nick);
+
 			buffers->append(Buffers::CoreBuffer, "[#] Connected to a DHT node.");
 		}
 		else if(m_connected && !DHT_isconnected())
