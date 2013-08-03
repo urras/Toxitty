@@ -130,6 +130,7 @@ void Commands::Nick(const std::string &data)
 		char nick[MAX_NAME_LENGTH];
 		strcpy(nick, data.c_str());
 		setname((unsigned char *) nick, data.length());
+		core->setNick(data.c_str());
 
 		buffers->appendf(Buffers::CoreBuffer, "[#] Nick changed to %s.", nick);
 	}
@@ -144,7 +145,6 @@ void Commands::Status(const std::string &data)
 		char status[MAX_USERSTATUS_LENGTH];
 		strcpy(status, data.c_str());
 		m_set_userstatus((unsigned char *) status, data.length());
-		core->setNick(data.c_str());
 
 		buffers->appendf(Buffers::CoreBuffer, "[#] Status changed to %s.", status);
 	}
