@@ -33,7 +33,7 @@ typedef std::vector<std::string> StringVec;
 std::string getTime();
 bool verifyKey(const std::string &key);
 
-void split(StringVec &vector, const std::string &data, const std::string &separator);
+StringVec split(const std::string &data, const std::string &separator);
 std::string join(const StringVec &data, const std::string &separator);
 
 std::string publicKeyToData(const std::string &key);

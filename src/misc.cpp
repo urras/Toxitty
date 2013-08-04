@@ -52,17 +52,22 @@ bool verifyKey(const std::string &key)
 	return true;
 }
 
-void split(StringVec &vector, const std::string &data, const std::string &separator)
+StringVec split(const std::string &data, const std::string &separator)
 {
+	if(data.empty())
+		return StringVec();
+
+	StringVec ret;
 	size_t start = 0, end = 0;
 
 	while((end = data.find(separator, start)) != std::string::npos)
 	{
-		vector.push_back(data.substr(start, end - start));
+		ret.push_back(data.substr(start, end - start));
 		start = end + separator.size();
 	}
 
-	vector.push_back(data.substr(start));
+	ret.push_back(data.substr(start));
+	return ret;
 }
 
 std::string join(const StringVec &data, const std::string &separator)
@@ -84,6 +89,7 @@ std::string join(const StringVec &data, const std::string &separator)
 std::string publicKeyToData(const std::string &key)
 {
 	std::string ret;
+
 	const char *characters = key.c_str();
 	int i = 0, length = key.length();
 
