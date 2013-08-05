@@ -18,9 +18,14 @@ find_package(Curses REQUIRED)
 include_directories(${CURSES_INCLUDE_DIR})
 link_libraries(${CURSES_LIBRARIES})
 
+# Boost
+find_package(Boost COMPONENTS thread system REQUIRED)
+include_directories(${Boost_INCLUDE_DIRS})
+link_libraries(${Boost_LIBRARIES})
+
 set(src src/main.cpp src/buffers.cpp src/callbacks.cpp src/commands.cpp src/config.cpp src/core.cpp src/interface.cpp src/input.cpp src/keyhandler.cpp src/misc.cpp)
 set(src_tox tox/core/DHT.c tox/core/friend_requests.c tox/core/LAN_discovery.c tox/core/Lossless_UDP.c tox/core/Messenger.c tox/core/net_crypto.c tox/core/network.c)
-set(libs "-lsodium -lboost_system -lboost_thread")
+set(libs "-lsodium")
 
 add_executable(toxitty ${src} ${src_tox})
 target_link_libraries(toxitty ${libs})
