@@ -24,10 +24,10 @@ std::string getTime(bool seconds)
 	time_t rawtime = time(NULL);
 	const tm *timestamp = localtime(&rawtime);
 
-	stream << std::setw(2) << std::setfill('0') << timestamp->tm_hour << ":" << std::setw(2) << std::setfill('0') << timestamp->tm_min;
+	stream << std::setw(2) << std::setfill('0') << timestamp->tm_hour << ':' << std::setw(2) << std::setfill('0') << timestamp->tm_min;
 
 	if(seconds)
-		stream << std::setw(2) << std::setfill('0') << timestamp->tm_sec;
+		stream << ':' << std::setw(2) << std::setfill('0') << timestamp->tm_sec;
 
 	return stream.str();
 }
