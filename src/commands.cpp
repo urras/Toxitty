@@ -249,7 +249,12 @@ void Commands::Message(const std::string &data)
 void Commands::Close(const std::string &data)
 {
 	int buffer = buffers->getCurrent();
-	buffers->erase(buffer);
-	buffers->assign(buffer, -1);
-	buffers->setCurrent(0);
+	if(buffer == 0)
+		buffers->append(buffer, "[!] The core buffer can not be closed.");
+	else
+	{
+		buffers->erase(buffer);
+		buffers->assign(buffer, -1);
+		buffers->setCurrent(0);
+	}
 }
