@@ -44,6 +44,7 @@ int main(int argc, char *argv[])
 	commands->add("status", "Changes your status message.", Commands::Status);
 	commands->add("set", "Manages user configuration.", Commands::Set);
 	commands->add("message", "Sends a message to a receiver", Commands::Message);
+	commands->add("close", "Clears and closes currently open buffer.", Commands::Close);
 
 	keyHandler->addShortcut(KEY_UP, [] { input->prevHistory(buffers->getCurrent()); clear(); });
 	keyHandler->addShortcut(KEY_DOWN, [] { input->nextHistory(buffers->getCurrent()); clear(); });

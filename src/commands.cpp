@@ -245,3 +245,11 @@ void Commands::Message(const std::string &data)
 			buffers->append(Buffers::CoreBuffer, "[!] Couldn't send your message.");
 	}
 }
+
+void Commands::Close(const std::string &data)
+{
+	int buffer = buffers->getCurrent();
+	buffers->erase(buffer);
+	buffers->assign(buffer, -1);
+	buffers->setCurrent(0);
+}
