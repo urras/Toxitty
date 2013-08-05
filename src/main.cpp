@@ -140,6 +140,8 @@ int main(int argc, char *argv[])
 				input->setPosCaret(currentBuffer, -1);
 
 				input->data[currentBuffer].clear();
+
+				clear();
 			}
 		}
 
