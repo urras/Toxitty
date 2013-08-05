@@ -24,7 +24,11 @@ void Callbacks::FriendRequest(unsigned char *key, unsigned char *data, unsigned 
 	core->setNumRequests(requests + 1);
 	core->addRequest(requests, key);
 
-	buffers->appendf(Buffers::CoreBuffer, "[#] New friend request received with message: %s", (char *) data);
+	if(strlen((char *) data) == 0)
+		buffers->append(Buffers::CoreBuffer, "[#] New friend request received.");
+	else
+		buffers->appendf(Buffers::CoreBuffer, "[#] New friend request received with message: %s", (char *) data);
+
 	buffers->appendf(Buffers::CoreBuffer, "[#] Accept with /accept %d.", requests);
 	std::cout << "\a" << std::flush;
 }
