@@ -23,6 +23,11 @@ std::shared_ptr<Buffers> buffers(new Buffers());
 Buffers::Buffers()
 {
 	m_current = Buffers::CoreBuffer;
+
+	for(unsigned int i = 0; i < Buffers::MaxBuffers; ++i)
+	{
+		m_assign[i] = -1;
+	}
 }
 
 Buffers::~Buffers()
@@ -69,6 +74,44 @@ void Buffers::erase(unsigned int buffer)
 
 	m_buffer[buffer].clear();
 	clear();
+}
+
+int Buffers::getFirstFree() const
+{
+	for(unsigned int i = 1; i < Buffers::MaxBuffers; ++i)
+	{
+		if(m_assign[i] == -1)
+			return i;
+	}
+
+	return -1;
+}
+
+int Buffers::getBufferByFriend(int id)
+{
+	for(unsigned int i = 1; i < Buffers::MaxBuffers; ++i)
+	{
+		if(m_assign[i] == id)
+			return i;
+	}
+
+	return -1;
+}
+
+int Buffers::getFriendByBuffer(unsigned int buffer)
+{
+	if(buffer < 0 || buffer >= Buffers::MaxBuffers)
+		return -1;
+
+	return m_assign[buffer];
+}
+
+void Buffers::assign(unsigned int buffer, int id)
+{
+	if(buffer < 0 || buffer >= Buffers::MaxBuffers)
+		return;
+
+	m_assign[buffer] = id;
 }
 
 unsigned int Buffers::getSize(unsigned int buffer)

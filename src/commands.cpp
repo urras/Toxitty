@@ -222,3 +222,26 @@ void Commands::Status(const std::string &data)
 		buffers->appendf(Buffers::CoreBuffer, "[#] Status changed to %s.", status);
 	}
 }
+
+void Commands::Message(const std::string &data)
+{
+	StringVec parameters = split(data, " ");
+	if(parameters.size() < 2)
+		buffers->append(Buffers::CoreBuffer, "[#] Command requires two parameters.");
+	else
+	{
+		std::string message;
+		if(parameters.size() == 2)
+			message = parameters[1];
+		else
+		{
+			StringVec vec = parameters;
+			vec.erase(vec.begin());
+
+			message = join(vec, " ");
+		}
+
+		if(!m_sendmessage(atoi(parameters[0].c_str()), (unsigned char *) message.c_str(), message.length() + 1))
+			buffers->append(Buffers::CoreBuffer, "[!] Couldn't send your message.");
+	}
+}

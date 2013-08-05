@@ -30,7 +30,7 @@
 
 typedef std::vector<std::string> StringVec;
 
-std::string getTime();
+std::string getTime(bool seconds);
 bool verifyKey(const std::string &key);
 
 StringVec split(const std::string &data, const std::string &separator);

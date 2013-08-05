@@ -56,6 +56,7 @@ class Commands
 		static void Accept(const std::string &data);
 		static void Nick(const std::string &data);
 		static void Status(const std::string &data);
+		static void Message(const std::string &data);
 
 	private:
 		std::map<std::string, Command> m_commands;

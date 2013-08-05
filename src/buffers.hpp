@@ -39,6 +39,11 @@ class Buffers
 		void appendf(unsigned int buffer, const char *format, ...);
 		void erase(unsigned int buffer);
 
+		int getFirstFree() const;
+		int getBufferByFriend(int id);
+		int getFriendByBuffer(unsigned int buffer);
+		void assign(unsigned int buffer, int id);
+
 		unsigned int getSize(unsigned int buffer);
 		std::string getData(unsigned int buffer, unsigned int position);
 
@@ -51,6 +56,7 @@ class Buffers
 	private:
 		std::vector<std::string> m_buffer[Buffers::MaxBuffers];
 		unsigned int m_current;
+		int m_assign[Buffers::MaxBuffers];
 };
 
 extern std::shared_ptr<Buffers> buffers;

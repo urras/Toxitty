@@ -70,7 +70,7 @@ void Interface::draw()
 
 	// Draw the input bar.
 	std::string bar;
-	bar += getTime() + " ";
+	bar += "[" + getTime(false) + "] ";
 	bar += "[#" + std::to_string(buffer) + "] ";
 	bar += "[" + core->getNick() + "] ";
 	bar += "[Receiver] ";

@@ -34,7 +34,21 @@ void Callbacks::Message(int id, unsigned char *data, unsigned short length)
 	char name[MAX_NAME_LENGTH];
 	getname(id, (unsigned char *) name);
 
-	buffers->appendf(Buffers::CoreBuffer, "[#] <%s> %s", name, data);
+	int buffer = buffers->getBufferByFriend(id);
+	if(buffer == -1)
+	{
+		buffer = buffers->getFirstFree();
+		if(buffer == -1)
+		{
+			buffers->appendf(Buffers::CoreBuffer, "[!] No free buffers available while receiving a messege from %s.", name);
+			return;
+		}
+
+		buffers->assign(buffer, id);
+		buffers->appendf(Buffers::CoreBuffer, "[#] New conversation started with %s at buffer #%d (/buffer %d to switch).", name, buffer, buffer);
+	}
+
+	buffers->appendf(buffer, "[%s] <%s> %s", getTime(true).c_str(), name, data);
 	std::cout << "\a" << std::flush;
 }
 
