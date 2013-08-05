@@ -54,10 +54,11 @@ bool verifyKey(const std::string &key)
 
 StringVec split(const std::string &data, const std::string &separator)
 {
-	if(data.empty())
-		return StringVec();
-
 	StringVec ret;
+
+	if(data.empty())
+		return ret;
+
 	size_t start = 0, end = 0;
 
 	while((end = data.find(separator, start)) != std::string::npos)
@@ -73,6 +74,9 @@ StringVec split(const std::string &data, const std::string &separator)
 std::string join(const StringVec &data, const std::string &separator)
 {
 	std::string ret;
+
+	if(data.empty())
+		return ret;
 
 	for(const auto &str : data)
 	{

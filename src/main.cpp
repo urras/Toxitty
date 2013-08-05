@@ -42,6 +42,7 @@ int main(int argc, char *argv[])
 	commands->add("accept", "Accepts a friend request.", Commands::Accept);
 	commands->add("nick", "Changes your nick.", Commands::Nick);
 	commands->add("status", "Changes your status message.", Commands::Status);
+	commands->add("set", "Manages user configuration.", Commands::Set);
 
 	keyHandler->addShortcut(KEY_UP, [] { input->prevHistory(buffers->getCurrent()); clear(); });
 	keyHandler->addShortcut(KEY_DOWN, [] { input->nextHistory(buffers->getCurrent()); clear(); });

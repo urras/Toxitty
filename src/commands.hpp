@@ -51,6 +51,7 @@ class Commands
 		static void Buffer(const std::string &data);
 		static void Exit(const std::string &data);
 		static void CommandsList(const std::string &data);
+		static void Set(const std::string &data);
 		static void Add(const std::string &add);
 		static void Accept(const std::string &data);
 		static void Nick(const std::string &data);

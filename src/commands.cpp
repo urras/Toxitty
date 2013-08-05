@@ -107,6 +107,39 @@ void Commands::CommandsList(const std::string &data)
 	}
 }
 
+void Commands::Set(const std::string &data)
+{
+	StringVec parameters = split(data, " ");
+	if(parameters.size() == 0)
+	{
+		buffers->append(Buffers::CoreBuffer, "[#] No params specified.");
+	}
+	else if(parameters.size() == 1)
+	{
+		std::string value = config->getValue(parameters[0]);
+		if(value.empty())
+			buffers->appendf(Buffers::CoreBuffer, "[#] No value set for key '%s'.", parameters[0].c_str());
+		else
+			buffers->appendf(Buffers::CoreBuffer, "[#] Key '%s' is set to '%s'.", parameters[0].c_str(), value.c_str());
+	}
+	else
+	{
+		std::string value;
+		if(parameters.size() == 2)
+			value = parameters[1];
+		else
+		{
+			StringVec vec = parameters;
+			vec.erase(vec.begin());
+
+			value = join(vec, " ");
+		}
+
+		config->setValue(parameters[0], value);
+		buffers->appendf(Buffers::CoreBuffer, "[#] Key '%s' has been set to '%s'.", parameters[0].c_str(), value.c_str());
+	}
+}
+
 void Commands::Add(const std::string &data)
 {
 	if(data.empty() || data.length() > crypto_box_PUBLICKEYBYTES * 2 || !verifyKey(data))
@@ -117,11 +150,11 @@ void Commands::Add(const std::string &data)
 		switch(ret)
 		{
 			case FAERR_TOOLONG:
-				buffers->appendf(Buffers::CoreBuffer, "[!] Request message too long (this shouldn't happen) (%d).",MAX_DATA_SIZE - crypto_box_PUBLICKEYBYTES - crypto_box_NONCEBYTES - crypto_box_BOXZEROBYTES + crypto_box_ZEROBYTES);
+				buffers->appendf(Buffers::CoreBuffer, "[!] Request message too long.");
 			break;
 
 			case FAERR_NOMESSAGE:
-				buffers->append(Buffers::CoreBuffer, "[!] Missing request message (this shouldn't happen).");
+				buffers->append(Buffers::CoreBuffer, "[!] Missing request message.");
 			break;
 
 			case FAERR_OWNKEY:
