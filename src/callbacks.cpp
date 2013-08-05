@@ -57,7 +57,11 @@ void Callbacks::NickChange(int id, unsigned char *data, unsigned short length)
 	char name[MAX_NAME_LENGTH];
 	getname(id, (unsigned char *) name);
 
-	buffers->appendf(Buffers::CoreBuffer, "[#] %s is now known as %s.", name, data);
+	if(strlen(name) == 0)
+		buffers->appendf(Buffers::CoreBuffer, "[#] %d is now known as %s.", id, data);
+	else
+		buffers->appendf(Buffers::CoreBuffer, "[#] %s is now known as %s.", name, data);
+
 	std::cout << "\a" << std::flush;
 }
 
@@ -66,6 +70,10 @@ void Callbacks::StatusChange(int id, unsigned char *data, unsigned short length)
 	char name[MAX_NAME_LENGTH];
 	getname(id, (unsigned char *) name);
 
-	buffers->appendf(Buffers::CoreBuffer, "[#] %s changed their status to %s", name, data);
+	if(strlen(name) == 0)
+		buffers->appendf(Buffers::CoreBuffer, "[#] %d changed their status to %s", id, data);
+	else
+		buffers->appendf(Buffers::CoreBuffer, "[#] %s changed their status to %s", name, data);
+
 	std::cout << "\a" << std::flush;
 }
