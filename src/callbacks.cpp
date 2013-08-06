@@ -30,7 +30,9 @@ void Callbacks::FriendRequest(unsigned char *key, unsigned char *data, unsigned 
 		buffers->appendf(Buffers::CoreBuffer, "[#] New friend request received with message: %s", (char *) data);
 
 	buffers->appendf(Buffers::CoreBuffer, "[#] Accept with /accept %d.", requests);
-	std::cout << "\a" << std::flush;
+
+	if(config->getBoolValue("bell.request"))
+		std::cout << "\a" << std::flush;
 }
 
 void Callbacks::Message(int id, unsigned char *data, unsigned short length)
@@ -53,7 +55,9 @@ void Callbacks::Message(int id, unsigned char *data, unsigned short length)
 	}
 
 	buffers->appendf(buffer, "[%s] <%s> %s", getTime(true).c_str(), name, data);
-	std::cout << "\a" << std::flush;
+
+	if(config->getBoolValue("bell.message"))
+		std::cout << "\a" << std::flush;
 }
 
 void Callbacks::NickChange(int id, unsigned char *data, unsigned short length)
@@ -66,7 +70,8 @@ void Callbacks::NickChange(int id, unsigned char *data, unsigned short length)
 	else
 		buffers->appendf(Buffers::CoreBuffer, "[#] %s is now known as %s.", name, data);
 
-	std::cout << "\a" << std::flush;
+	if(config->getBoolValue("bell.nick"))
+		std::cout << "\a" << std::flush;
 }
 
 void Callbacks::StatusChange(int id, unsigned char *data, unsigned short length)
@@ -79,5 +84,6 @@ void Callbacks::StatusChange(int id, unsigned char *data, unsigned short length)
 	else
 		buffers->appendf(Buffers::CoreBuffer, "[#] %s changed their status to %s", name, data);
 
-	std::cout << "\a" << std::flush;
+	if(config->getBoolValue("bell.status"))
+		std::cout << "\a" << std::flush;
 }

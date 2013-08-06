@@ -34,6 +34,11 @@ bool Config::load()
 	Json::Value root;
 	Json::Reader reader;
 
+	m_values["bell.request"] = "1";
+	m_values["bell.message"] = "1";
+	m_values["bell.nick"] = "0";
+	m_values["bell.status"] = "0";
+
 	m_values["dht.server"] = "198.46.136.167";
 	m_values["dht.port"] = "33445";
 	m_values["dht.key"] = "728925473812C7AAC482BE7250BCCAD0B8CB9F737BF3D42ABD34459C1768F854";
