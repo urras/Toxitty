@@ -26,6 +26,8 @@
 #include <string>
 #include <vector>
 
+#include "misc.hpp"
+
 #include "../tox/core/Messenger.h"
 #include "../tox/core/network.h"
 
@@ -54,7 +56,9 @@ class Buffers
 		std::string getData(unsigned int buffer, unsigned int position);
 
 		unsigned int getCurrent() const { return m_current; }
-		void setCurrent(unsigned int current) { if(current >= 0 && current < Buffers::MaxBuffers) m_current = current; }
+		void setCurrent(unsigned int current);
+
+		StringVec getActive() const;
 
 		void prev();
 		void next();
@@ -62,7 +66,9 @@ class Buffers
 	private:
 		std::vector<std::string> m_buffer[Buffers::MaxBuffers];
 		unsigned int m_current;
+
 		int m_assign[Buffers::MaxBuffers];
+		bool m_active[Buffers::MaxBuffers];
 };
 
 extern std::shared_ptr<Buffers> buffers;

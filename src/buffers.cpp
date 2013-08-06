@@ -27,6 +27,7 @@ Buffers::Buffers()
 	for(unsigned int i = 0; i < Buffers::MaxBuffers; ++i)
 	{
 		m_assign[i] = -1;
+		m_active[i] = false;
 	}
 }
 
@@ -43,6 +44,9 @@ void Buffers::append(unsigned int buffer, const std::string &data)
 
 	if(m_buffer[buffer].size() >= 500)
 		m_buffer[buffer].erase(m_buffer[buffer].begin());
+
+	if(!m_active[buffer] && buffer != m_current)
+		m_active[buffer] = true;
 
 	clear();
 }
@@ -63,6 +67,9 @@ void Buffers::appendf(unsigned int buffer, const char *format, ...)
 
 	if(m_buffer[buffer].size() >= 500)
 		m_buffer[buffer].erase(m_buffer[buffer].begin());
+
+	if(!m_active[buffer] && buffer != m_current)
+		m_active[buffer] = true;
 
 	clear();
 }
@@ -154,6 +161,30 @@ std::string Buffers::getData(unsigned int buffer, unsigned int position)
 		return "";
 
 	return m_buffer[buffer].at(position);
+}
+
+void Buffers::setCurrent(unsigned int buffer)
+{
+	if(buffer < 0 || buffer >= Buffers::MaxBuffers)
+		return;
+
+	m_current = buffer;
+
+	if(m_active[buffer])
+		m_active[buffer] = false;
+}
+
+StringVec Buffers::getActive() const
+{
+	StringVec ret;
+
+	for(unsigned int i = 0; i < Buffers::MaxBuffers; ++i)
+	{
+		if(m_active[i])
+			ret.push_back(std::to_string(i));
+	}
+
+	return ret;
 }
 
 void Buffers::prev()

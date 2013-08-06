@@ -85,6 +85,11 @@ void Interface::draw()
 	std::string bar;
 	bar += "[" + getTime(false) + "] ";
 	bar += "[" + std::to_string(buffer) + ":" + buffers->getName(buffer) + "] ";
+
+	StringVec act = buffers->getActive();
+	if(act.size() > 0)
+		bar += "[Act: " + join(act, ", ") + "] ";
+
 	bar += "[" + core->getNick() + "] ";
 
 	if(caret == -1)
