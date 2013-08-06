@@ -18,7 +18,7 @@ void Core::start()
 {
 	initMessenger();
 
-	buffers->appendf(Buffers::CoreBuffer, "[#] Your public key: %s", dataToPublicKey((char *) self_public_key).c_str());
+	buffers->appendf(Buffers::CoreBuffer, "[#] ID: %s", dataToPublicKey((char *) self_public_key).c_str());
 
 	IP_Port data;
 	data.port = htons(config->getIntValue("dht.port"));
