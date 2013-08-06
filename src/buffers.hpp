@@ -26,6 +26,9 @@
 #include <string>
 #include <vector>
 
+#include "../tox/core/Messenger.h"
+#include "../tox/core/network.h"
+
 class Buffers
 {
 	public:
@@ -42,6 +45,9 @@ class Buffers
 		int getFirstFree() const;
 		int getBufferByFriend(int id);
 		int getFriendByBuffer(unsigned int buffer);
+
+		std::string getName(unsigned int buffer);
+
 		void assign(unsigned int buffer, int id);
 
 		unsigned int getSize(unsigned int buffer);

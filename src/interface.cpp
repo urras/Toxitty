@@ -84,9 +84,8 @@ void Interface::draw()
 	// Draw the input bar.
 	std::string bar;
 	bar += "[" + getTime(false) + "] ";
-	bar += "[#" + std::to_string(buffer) + "] ";
+	bar += "[" + std::to_string(buffer) + ":" + buffers->getName(buffer) + "] ";
 	bar += "[" + core->getNick() + "] ";
-	bar += "[Receiver] ";
 
 	if(caret == -1)
 	{

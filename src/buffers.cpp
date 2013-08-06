@@ -106,6 +106,29 @@ int Buffers::getFriendByBuffer(unsigned int buffer)
 	return m_assign[buffer];
 }
 
+std::string Buffers::getName(unsigned int buffer)
+{
+	std::string ret;
+
+	if(buffer == 0)
+		ret = "Core";
+	else
+	{
+		int id = getFriendByBuffer(buffer);
+		if(id == -1)
+			ret = "Unassigned";
+		else
+		{
+			char name[MAX_NAME_LENGTH];
+			getname(id, (unsigned char *) name);
+
+			ret = name;
+		}
+	}
+
+	return ret;
+}
+
 void Buffers::assign(unsigned int buffer, int id)
 {
 	if(buffer < 0 || buffer >= Buffers::MaxBuffers)
