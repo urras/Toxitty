@@ -190,11 +190,21 @@ StringVec Buffers::getActive() const
 void Buffers::prev()
 {
 	if(m_current > 0)
+	{
 		--m_current;
+
+		if(m_active[m_current])
+			m_active[m_current] = false;
+	}
 }
 
 void Buffers::next()
 {
 	if(m_current < Buffers::MaxBuffers - 1)
+	{
 		++m_current;
+
+		if(m_active[m_current])
+			m_active[m_current] = false;
+	}
 }
