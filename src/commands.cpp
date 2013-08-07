@@ -61,8 +61,8 @@ bool Commands::execute(std::string data)
 
 void Commands::Help(const std::string &data)
 {
-	buffers->append(Buffers::CoreBuffer, "[#] Command /help executed, data: " + data);
-	buffers->appendf(0, "Expected: 4, got: %d.", data.length());
+	buffers->append(Buffers::CoreBuffer, "[#] You can find a general FAQ at https://github.com/diath/Toxitty/blob/master/doc/HELP");
+	buffers->append(Buffers::CoreBuffer, "[#] Use /commands to see the list of available commands.");
 }
 
 void Commands::Buffer(const std::string &data)
