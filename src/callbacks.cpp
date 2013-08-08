@@ -85,7 +85,7 @@ void Callbacks::StatusChange(int id, USERSTATUS status)
 	if(strlen(name) == 0)
 		buffers->appendf(Buffers::CoreBuffer, "[#] %d is now %s.", id, StatusName[status].c_str());
 	else
-		buffers->appendf(Buffers::CoreBuffer, "[#] %s is now %s.", id, StatusName[status].c_str());
+		buffers->appendf(Buffers::CoreBuffer, "[#] %s is now %s.", name, StatusName[status].c_str());
 
 	if(config->getBoolValue("bell.status"))
 		std::cout << "\a" << std::flush;
