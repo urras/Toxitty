@@ -261,6 +261,23 @@ void Commands::Message(const std::string &data)
 	}
 }
 
+void Commands::Query(const std::string &data)
+{
+	int id = atoi(data.c_str());
+	int buffer = buffers->getBufferByFriend(id);
+	if(buffer == -1)
+	{
+		buffer = buffers->getFirstFree();
+		if(buffer == -1)
+			buffers->append(Buffers::CoreBuffer, "[!] Could not assign a new buffer.");
+		else
+			buffers->assign(buffer, id);
+	}
+
+	if(buffer != -1)
+		buffers->setCurrent(buffer);
+}
+
 void Commands::Close(const std::string &data)
 {
 	int buffer = buffers->getCurrent();

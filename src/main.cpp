@@ -44,6 +44,7 @@ int main(int argc, char *argv[])
 	commands->add("status", "Changes your status message.", Commands::Status);
 	commands->add("set", "Manages user configuration.", Commands::Set);
 	commands->add("message", "Sends a message to a receiver", Commands::Message);
+	commands->add("query", "Opens a conversation buffer with receiver.", Commands::Query);
 	commands->add("close", "Clears and closes currently open buffer.", Commands::Close);
 	commands->add("online", "Sets your status to online.", Commands::Online);
 	commands->add("away", "Sets your status to away.", Commands::Away);
