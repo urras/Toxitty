@@ -114,28 +114,26 @@ int main(int argc, char *argv[])
 			}
 			else if((ch == '\n' || ch == KEY_ENTER) && input->data[currentBuffer].length() > 0)
 			{
-				if(input->data[currentBuffer][0] == '/')
+				if(input->data[currentBuffer][0] == '/' || currentBuffer == Buffers::CoreBuffer)
 				{
+					if(input->data[currentBuffer][0] != '/')
+						input->data[currentBuffer].insert(0, 1, '/');
+
 					if(!commands->execute(input->data[currentBuffer]))
 						buffers->append(Buffers::CoreBuffer, "[!] Unrecognized command: " + input->data[currentBuffer]);
 				}
 				else
 				{
-					if(currentBuffer == Buffers::CoreBuffer)
-						buffers->append(Buffers::CoreBuffer, "[!] You can only send commands to the core buffer.");
-					else
+					int id = buffers->getFriendByBuffer(currentBuffer);
+					if(id != -1)
 					{
-						int id = buffers->getFriendByBuffer(currentBuffer);
-						if(id != -1)
-						{
-							buffers->appendf(currentBuffer, "[%s] <%s> %s", getTime(true).c_str(), core->getNick().c_str(), input->data[currentBuffer].c_str());
+						buffers->appendf(currentBuffer, "[%s] <%s> %s", getTime(true).c_str(), core->getNick().c_str(), input->data[currentBuffer].c_str());
 
-							if(!m_sendmessage(id, (unsigned char *) input->data[currentBuffer].c_str(), input->data[currentBuffer].length() + 1))
-								buffers->append(currentBuffer, "[!] Couldn't send your message.");
-						}
-						else
-							buffers->append(currentBuffer, "[!] No friend assigned to this buffer.");
+						if(!m_sendmessage(id, (unsigned char *) input->data[currentBuffer].c_str(), input->data[currentBuffer].length() + 1))
+							buffers->append(currentBuffer, "[!] Couldn't send your message.");
 					}
+					else
+						buffers->append(currentBuffer, "[!] No friend assigned to this buffer.");
 				}
 
 				input->history[currentBuffer].push_back(input->data[currentBuffer]);
