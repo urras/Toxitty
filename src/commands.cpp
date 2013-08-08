@@ -87,13 +87,11 @@ void Commands::Buffer(const std::string &data)
 
 void Commands::Exit(const std::string &data)
 {
-	(void) data;
 	core->setRunning(false);
 }
 
 void Commands::CommandsList(const std::string &data)
 {
-	(void) data;
 	buffers->append(Buffers::CoreBuffer, "[#] Available commands:");
 
 	std::map<std::string, Command> list;
@@ -208,18 +206,18 @@ void Commands::Nick(const std::string &data)
 
 void Commands::Status(const std::string &data)
 {
-	if(data.empty() || data.length() > MAX_USERSTATUS_LENGTH)
-		buffers->append(Buffers::CoreBuffer, "[!] Invalid status length.");
+	if(data.empty() || data.length() > MAX_STATUSMESSAGE_LENGTH)
+		buffers->append(Buffers::CoreBuffer, "[!] Invalid status message length.");
 	else
 	{
-		char status[MAX_USERSTATUS_LENGTH];
+		char status[MAX_STATUSMESSAGE_LENGTH];
 		strcpy(status, data.c_str());
-		m_set_userstatus((unsigned char *) status, data.length() + 1);
+		m_set_statusmessage((unsigned char *) status, data.length() + 1);
 
-		core->setStatus(data);
+		core->setStatusMessage(data);
 		config->setValue("status", data);
 
-		buffers->appendf(Buffers::CoreBuffer, "[#] Status changed to %s.", status);
+		buffers->appendf(Buffers::CoreBuffer, "[#] Status message changed to %s.", status);
 	}
 }
 
@@ -257,4 +255,34 @@ void Commands::Close(const std::string &data)
 		buffers->assign(buffer, -1);
 		buffers->setCurrent(0);
 	}
+}
+
+void Commands::Online(const std::string &data)
+{
+	m_set_userstatus(USERSTATUS_NONE);
+
+	if(core->getStatusMessage().length() == 0)
+		buffers->append(Buffers::CoreBuffer, "[#] Your status is now online.");
+	else
+		buffers->appendf(Buffers::CoreBuffer, "[#] Your status is now online (%s).", core->getStatusMessage().c_str());
+}
+
+void Commands::Away(const std::string &data)
+{
+	m_set_userstatus(USERSTATUS_AWAY);
+
+	if(core->getStatusMessage().length() == 0)
+		buffers->append(Buffers::CoreBuffer, "[#] Your status is now away.");
+	else
+		buffers->appendf(Buffers::CoreBuffer, "[#] Your status is now away (%s).", core->getStatusMessage().c_str());
+}
+
+void Commands::Busy(const std::string &data)
+{
+	m_set_userstatus(USERSTATUS_BUSY);
+
+	if(core->getStatusMessage().length() == 0)
+		buffers->append(Buffers::CoreBuffer, "[#] Your status is now busy.");
+	else
+		buffers->appendf(Buffers::CoreBuffer, "[#] Your status is now busy (%s).", core->getStatusMessage().c_str());
 }

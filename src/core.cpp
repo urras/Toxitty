@@ -50,8 +50,11 @@ void Core::thread()
 			core->setNick(nick);
 
 			std::string status = config->getValue("status");
-			m_set_userstatus((unsigned char *) status.c_str(), status.length());
-			core->setStatus(status);
+			m_set_statusmessage((unsigned char *) status.c_str(), status.length());
+			m_set_userstatus(USERSTATUS_NONE);
+
+			core->setStatusMessage(status);
+			core->setStatus(USERSTATUS_NONE);
 
 			buffers->append(Buffers::CoreBuffer, "[#] Connected to a DHT node.");
 		}

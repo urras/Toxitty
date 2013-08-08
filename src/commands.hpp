@@ -58,6 +58,9 @@ class Commands
 		static void Status(const std::string &data);
 		static void Message(const std::string &data);
 		static void Close(const std::string &data);
+		static void Online(const std::string &data);
+		static void Away(const std::string &data);
+		static void Busy(const std::string &data);
 
 	private:
 		std::map<std::string, Command> m_commands;

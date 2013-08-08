@@ -74,15 +74,32 @@ void Callbacks::NickChange(int id, unsigned char *data, unsigned short length)
 		std::cout << "\a" << std::flush;
 }
 
-void Callbacks::StatusChange(int id, unsigned char *data, unsigned short length)
+void Callbacks::StatusChange(int id, USERSTATUS status)
+{
+	static std::string StatusName[] = {"online", "away", "busy", "invalid"};
+
+	char name[MAX_NAME_LENGTH];
+	getname(id, (unsigned char *) name);
+
+
+	if(strlen(name) == 0)
+		buffers->appendf(Buffers::CoreBuffer, "[#] %d is now %s.", id, StatusName[status].c_str());
+	else
+		buffers->appendf(Buffers::CoreBuffer, "[#] %s is now %s.", id, StatusName[status].c_str());
+
+	if(config->getBoolValue("bell.status"))
+		std::cout << "\a" << std::flush;
+}
+
+void Callbacks::StatusMessageChange(int id, unsigned char *data, unsigned short length)
 {
 	char name[MAX_NAME_LENGTH];
 	getname(id, (unsigned char *) name);
 
 	if(strlen(name) == 0)
-		buffers->appendf(Buffers::CoreBuffer, "[#] %d changed their status to %s", id, data);
+		buffers->appendf(Buffers::CoreBuffer, "[#] %d changed their status message to %s", id, data);
 	else
-		buffers->appendf(Buffers::CoreBuffer, "[#] %s changed their status to %s", name, data);
+		buffers->appendf(Buffers::CoreBuffer, "[#] %s changed their status message to %s", name, data);
 
 	if(config->getBoolValue("bell.status"))
 		std::cout << "\a" << std::flush;

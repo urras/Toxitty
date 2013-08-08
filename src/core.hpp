@@ -29,8 +29,11 @@ class Core
 		std::string getNick() const { return m_nick; }
 		void setNick(const std::string &nick) { m_nick = nick; }
 
-		std::string getStatus() const { return m_status; }
-		void setStatus(const std::string &status) { m_status = status; }
+		std::string getStatusMessage() const { return m_statusMessage; }
+		void setStatusMessage(const std::string &status) { m_statusMessage = status; }
+
+		USERSTATUS getStatus() const { return m_status; }
+		void setStatus(USERSTATUS status) { m_status = status; }
 
 		int getNumRequests() const { return m_numRequests; }
 		void setNumRequests(int num) { m_numRequests = num; }
@@ -43,7 +46,8 @@ class Core
 		bool m_connected;
 
 		std::string m_nick;
-		std::string m_status;
+		std::string m_statusMessage;
+		USERSTATUS m_status;
 
 		int m_numRequests;
 		unsigned char m_requests[MaxRequests][CLIENT_ID_SIZE];
