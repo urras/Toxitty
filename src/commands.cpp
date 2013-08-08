@@ -239,8 +239,25 @@ void Commands::Message(const std::string &data)
 			message = join(vec, " ");
 		}
 
-		if(!m_sendmessage(atoi(parameters[0].c_str()), (unsigned char *) message.c_str(), message.length() + 1))
+		int id = atoi(parameters[0].c_str());
+		if(!m_sendmessage(id, (unsigned char *) message.c_str(), message.length() + 1))
 			buffers->append(Buffers::CoreBuffer, "[!] Couldn't send your message.");
+		else
+		{
+			int buffer = buffers->getBufferByFriend(id);
+			if(buffer == -1)
+			{
+				buffer = buffers->getFirstFree();
+				if(buffer == -1)
+					buffers->append(Buffers::CoreBuffer, "[!] Could not assign a new buffer.");
+				else
+				{
+					buffers->assign(buffer, id);
+					buffers->appendf(buffer, "[%s] <%s> %s", getTime(true).c_str(), core->getNick().c_str(), message.c_str());
+					buffers->setCurrent(buffer);
+				}
+			}
+		}
 	}
 }
 
