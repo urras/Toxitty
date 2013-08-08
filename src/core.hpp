@@ -15,7 +15,7 @@
 class Core
 {
 	public:
-		static const unsigned int MaxRequests = 255;
+		static const int MaxRequests = 255;
 
 		Core();
 		~Core();

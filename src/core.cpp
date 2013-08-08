@@ -71,10 +71,16 @@ void Core::thread()
 
 void Core::addRequest(int request, unsigned char *key)
 {
+	if(request < 0 || request >= Core::MaxRequests)
+		return;
+
 	memcpy(m_requests[request], key, CLIENT_ID_SIZE);
 }
 
 bool Core::acceptRequest(int request)
 {
+	if(request < 0 || request >= Core::MaxRequests)
+		return false;
+
 	return (m_addfriend_norequest(m_requests[request]) != -1);
 }
