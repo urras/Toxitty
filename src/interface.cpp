@@ -43,7 +43,7 @@ void Interface::init()
 	raw();
 	noecho();
 	keypad(stdscr, 1);
-	nodelay(stdscr, 1);
+	timeout(100);
 	curs_set(0);
 
 	if(has_colors())

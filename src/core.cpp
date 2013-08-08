@@ -65,7 +65,7 @@ void Core::thread()
 		}
 
 		doMessenger();
-		boost::this_thread::sleep(boost::posix_time::milliseconds(1));
+		boost::this_thread::sleep(boost::posix_time::milliseconds(100));
 	}
 }
 
