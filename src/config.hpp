@@ -40,9 +40,12 @@ class Config
 		bool save();
 
 		void setValue(const std::string &key, const std::string &value);
+
 		std::string getValue(const std::string &key);
 		int getIntValue(const std::string &key);
 		bool getBoolValue(const std::string &key);
+
+		std::map<std::string, std::string> getValues() const { return m_values; }
 
 	private:
 		std::map<std::string, std::string> m_values;

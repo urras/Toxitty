@@ -96,11 +96,12 @@ void Commands::CommandsList(const std::string &data)
 
 	std::map<std::string, Command> list;
 	commands->getCommands(list);
+	std::stringstream command;
 
-	for(std::map<std::string, Command>::iterator it = list.begin(); it != list.end(); ++it)
+	for(const auto &it : list)
 	{
-		std::stringstream command;
-		command << "    /" << std::left << std::setw(16) << std::setfill(' ') << it->first << ' ' << std::get<0>(it->second);
+		command.str("");
+		command << "    /" << std::left << std::setw(16) << std::setfill(' ') << it.first << ' ' << std::get<0>(it.second);
 		buffers->append(Buffers::CoreBuffer, command.str());
 	}
 }
@@ -110,7 +111,17 @@ void Commands::Set(const std::string &data)
 	StringVec parameters = split(data, " ");
 	if(parameters.size() == 0)
 	{
-		buffers->append(Buffers::CoreBuffer, "[#] No params specified.");
+		buffers->append(Buffers::CoreBuffer, "[#] Current configuration:");
+
+		std::map<std::string, std::string> values = config->getValues();
+		std::stringstream option;
+
+		for(const auto &it : values)
+		{
+			option.str("");
+			option << "    " << std::left << std::setw(24) << std::setfill(' ') << it.first << ' ' << it.second;
+			buffers->append(Buffers::CoreBuffer, option.str());
+		}
 	}
 	else if(parameters.size() == 1)
 	{
