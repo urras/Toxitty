@@ -26,6 +26,7 @@
 #include <string>
 #include <vector>
 
+#include "config.hpp"
 #include "misc.hpp"
 
 #include "../tox/core/Messenger.h"

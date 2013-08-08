@@ -42,7 +42,7 @@ void Buffers::append(unsigned int buffer, const std::string &data)
 
 	m_buffer[buffer].push_back(data);
 
-	if(m_buffer[buffer].size() >= 500)
+	if((int) m_buffer[buffer].size() >= config->getIntValue("limit.buffer"))
 		m_buffer[buffer].erase(m_buffer[buffer].begin());
 
 	if(!m_active[buffer] && buffer != m_current)
@@ -65,7 +65,7 @@ void Buffers::appendf(unsigned int buffer, const char *format, ...)
 
 	m_buffer[buffer].push_back(data);
 
-	if(m_buffer[buffer].size() >= 500)
+	if((int) m_buffer[buffer].size() >= config->getIntValue("limit.buffer"))
 		m_buffer[buffer].erase(m_buffer[buffer].begin());
 
 	if(!m_active[buffer] && buffer != m_current)

@@ -43,6 +43,9 @@ bool Config::load()
 	m_values["dht.port"] = "33445";
 	m_values["dht.key"] = "728925473812C7AAC482BE7250BCCAD0B8CB9F737BF3D42ABD34459C1768F854";
 
+	m_values["limit.input"] = "100";
+	m_values["limit.buffer"] = "500";
+
 	if(!reader.parse(data, root))
 	{
 		buffers->append(Buffers::CoreBuffer, "[!] Failed to load the config file, using defaults.");
