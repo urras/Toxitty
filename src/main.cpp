@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
 
 		if(!keyHandler->handle(ch))
 		{
-			if(ch == KEY_BACKSPACE && input->data[currentBuffer].length() > 0)
+			if((ch == 0x107 || ch == 0x8 || ch == 0x7f) && input->data[currentBuffer].length() > 0)
 			{
 				int position = input->getPosCaret(currentBuffer);
 				if(position == -1)
