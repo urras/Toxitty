@@ -284,7 +284,7 @@ void Commands::Me(const std::string &data)
 			buffers->append(buffer, "[!] Can not send the action message.");
 		else
 		{
-			buffers->appendf(buffer, "[%s] %s %s", getTime(true).c_str(), core->getNick().c_str(), data.c_str());
+			buffers->appendf(buffer, "[%s] * %s %s", getTime(true).c_str(), core->getNick().c_str(), data.c_str());
 		}
 	}
 }
