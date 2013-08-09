@@ -33,6 +33,7 @@ class Callbacks
 
 		static void FriendRequest(unsigned char *key, unsigned char *data, unsigned short length);
 		static void Message(int id, unsigned char *data, unsigned short length);
+		static void ActionMessage(int id, unsigned char *data, unsigned short length);
 		static void NickChange(int id, unsigned char *data, unsigned short length);
 		static void StatusChange(int id, USERSTATUS status);
 		static void StatusMessageChange(int id, unsigned char *data, unsigned short length);

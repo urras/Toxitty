@@ -252,7 +252,7 @@ void Commands::Message(const std::string &data)
 
 		int id = atoi(parameters[0].c_str());
 		if(!m_sendmessage(id, (unsigned char *) message.c_str(), message.length() + 1))
-			buffers->append(Buffers::CoreBuffer, "[!] Couldn't send your message.");
+			buffers->append(Buffers::CoreBuffer, "[!] Could not send your message.");
 		else
 		{
 			int buffer = buffers->getBufferByFriend(id);
@@ -268,6 +268,23 @@ void Commands::Message(const std::string &data)
 					buffers->setCurrent(buffer);
 				}
 			}
+		}
+	}
+}
+
+void Commands::Me(const std::string &data)
+{
+	unsigned int buffer = buffers->getCurrent();
+	if(buffer == 0)
+		buffers->append(Buffers::CoreBuffer, "[!] Can not execute /me in the core buffer.");
+	else
+	{
+		int id = buffers->getFriendByBuffer(buffer);
+		if(!m_sendaction(id, (unsigned char *) data.c_str(), data.length() + 1))
+			buffers->append(buffer, "[!] Can not send the action message.");
+		else
+		{
+			buffers->appendf(buffer, "[%s] %s %s", getTime(true).c_str(), core->getNick().c_str(), data.c_str());
 		}
 	}
 }

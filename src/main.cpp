@@ -49,6 +49,7 @@ int main(int argc, char *argv[])
 	commands->add("online", "Sets your status to online.", Commands::Online);
 	commands->add("away", "Sets your status to away.", Commands::Away);
 	commands->add("busy", "Sets your status to busy.", Commands::Busy);
+	commands->add("me", "Sends action message.", Commands::Me);
 
 	keyHandler->addShortcut(KEY_UP, [] { input->prevHistory(buffers->getCurrent()); clear(); });
 	keyHandler->addShortcut(KEY_DOWN, [] { input->nextHistory(buffers->getCurrent()); clear(); });
@@ -60,6 +61,7 @@ int main(int argc, char *argv[])
 
 	m_callback_friendrequest(Callbacks::FriendRequest);
 	m_callback_friendmessage(Callbacks::Message);
+	m_callback_action(Callbacks::ActionMessage);
 	m_callback_namechange(Callbacks::NickChange);
 	m_callback_userstatus(Callbacks::StatusChange);
 	m_callback_statusmessage(Callbacks::StatusMessageChange);
