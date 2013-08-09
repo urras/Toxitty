@@ -205,7 +205,7 @@ void Commands::Nick(const std::string &data)
 	else
 	{
 		char nick[MAX_NAME_LENGTH];
-		strcpy(nick, data.c_str());
+		memcpy(nick, data.c_str(), data.length() + 1);
 		setname((unsigned char *) nick, data.length() + 1);
 
 		core->setNick(data);
@@ -222,7 +222,7 @@ void Commands::Status(const std::string &data)
 	else
 	{
 		char status[MAX_STATUSMESSAGE_LENGTH];
-		strcpy(status, data.c_str());
+		memcpy(status, data.c_str(), data.length() + 1);
 		m_set_statusmessage((unsigned char *) status, data.length() + 1);
 
 		core->setStatusMessage(data);
