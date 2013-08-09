@@ -65,10 +65,14 @@ void Callbacks::NickChange(int id, unsigned char *data, unsigned short length)
 	char name[MAX_NAME_LENGTH];
 	getname(id, (unsigned char *) name);
 
+	int buffer = buffers->getBufferByFriend(id);
+	if(buffer == -1)
+		buffer = Buffers::CoreBuffer;
+
 	if(strlen(name) == 0)
-		buffers->appendf(Buffers::CoreBuffer, "[#] %d is now known as %s.", id, data);
+		buffers->appendf((unsigned int) buffer, "[#] %d is now known as %s.", id, data);
 	else
-		buffers->appendf(Buffers::CoreBuffer, "[#] %s is now known as %s.", name, data);
+		buffers->appendf((unsigned int) buffer, "[#] %s is now known as %s.", name, data);
 
 	if(config->getBoolValue("bell.nick"))
 		std::cout << "\a" << std::flush;
@@ -81,11 +85,14 @@ void Callbacks::StatusChange(int id, USERSTATUS status)
 	char name[MAX_NAME_LENGTH];
 	getname(id, (unsigned char *) name);
 
+	int buffer = buffers->getBufferByFriend(id);
+	if(buffer == -1)
+		buffer = Buffers::CoreBuffer;
 
 	if(strlen(name) == 0)
-		buffers->appendf(Buffers::CoreBuffer, "[#] %d is now %s.", id, StatusName[status].c_str());
+		buffers->appendf((unsigned int) buffer, "[#] %d is now %s.", id, StatusName[status].c_str());
 	else
-		buffers->appendf(Buffers::CoreBuffer, "[#] %s is now %s.", name, StatusName[status].c_str());
+		buffers->appendf((unsigned int) buffer, "[#] %s is now %s.", name, StatusName[status].c_str());
 
 	if(config->getBoolValue("bell.status"))
 		std::cout << "\a" << std::flush;
@@ -96,10 +103,14 @@ void Callbacks::StatusMessageChange(int id, unsigned char *data, unsigned short 
 	char name[MAX_NAME_LENGTH];
 	getname(id, (unsigned char *) name);
 
+	int buffer = buffers->getBufferByFriend(id);
+	if(buffer == -1)
+		buffer = Buffers::CoreBuffer;
+
 	if(strlen(name) == 0)
-		buffers->appendf(Buffers::CoreBuffer, "[#] %d changed their status message to %s", id, data);
+		buffers->appendf((unsigned int) buffer, "[#] %d changed their status message to %s", id, data);
 	else
-		buffers->appendf(Buffers::CoreBuffer, "[#] %s changed their status message to %s", name, data);
+		buffers->appendf((unsigned int) buffer, "[#] %s changed their status message to %s", name, data);
 
 	if(config->getBoolValue("bell.status"))
 		std::cout << "\a" << std::flush;
