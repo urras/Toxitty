@@ -151,11 +151,23 @@ void Commands::Set(const std::string &data)
 
 void Commands::Add(const std::string &data)
 {
-	if(data.empty() || data.length() > crypto_box_PUBLICKEYBYTES * 2 || !verifyKey(data))
+	StringVec parameters = split(data, " ");
+	if(parameters.size() == 0)
+	{
+		buffers->append(Buffers::CoreBuffer, "[!] Command requires at least one parameters.");
+		return;
+	}
+
+	if(parameters[0].empty() || parameters[0].length() > crypto_box_PUBLICKEYBYTES * 2 || !verifyKey(parameters[0]))
 		buffers->append(Buffers::CoreBuffer, "[!] Invalid public key.");
 	else
 	{
-		int ret = m_addfriend((unsigned char *) publicKeyToData(data).c_str(), (unsigned char *) "Test", 5);
+		int ret = FAERR_UNKNOWN;
+		if(parameters.size() == 2)
+			ret = m_addfriend((unsigned char *) publicKeyToData(parameters[0]).c_str(), (unsigned char *) parameters[1].c_str(), parameters[1].length() + 1);
+		else	
+			ret = m_addfriend((unsigned char *) publicKeyToData(parameters[0]).c_str(), (unsigned char *) "Friend Request", sizeof("Friend Request") + 1);
+
 		switch(ret)
 		{
 			case FAERR_TOOLONG:
