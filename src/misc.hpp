@@ -42,8 +42,8 @@ std::string join(const StringVec &data, const std::string &separator);
 std::string publicKeyToData(const std::string &key);
 std::string privateKeyToData(const std::string &key);
 
-std::string dataToPublicKey(const std::string &data);
-std::string dataToPrivateKey(const std::string &data);
+std::string dataToPublicKey(unsigned char *data);
+std::string dataToPrivateKey(unsigned char *data);
 
 std::string getConfigDir();
 

@@ -142,34 +142,28 @@ std::string privateKeyToData(const std::string &key)
 	return ret;
 }
 
-std::string dataToPublicKey(const std::string &data)
+std::string dataToPublicKey(unsigned char *data)
 {
 	std::string ret;
-
-	if(data.length() != crypto_box_PUBLICKEYBYTES * 2)
-		return ret;
 
 	char buffer[255];
 	for(unsigned int i = 0; i < crypto_box_PUBLICKEYBYTES; ++i)
 	{
-		sprintf(buffer, "%02X", static_cast<unsigned char>(data[i]));
+		sprintf(buffer, "%02X", data[i]);
 		ret += buffer;
 	}
 
 	return ret;
 }
 
-std::string dataToPrivateKey(const std::string &data)
+std::string dataToPrivateKey(unsigned char *data)
 {
 	std::string ret;
-
-	if(data.length() != crypto_box_SECRETKEYBYTES * 2)
-		return ret;
 
 	char buffer[255];
 	for(unsigned int i = 0; i < crypto_box_SECRETKEYBYTES; ++i)
 	{
-		sprintf(buffer, "%02X", static_cast<unsigned char>(data[i]));
+		sprintf(buffer, "%02X", data[i]);
 		ret += buffer;
 	}
 
