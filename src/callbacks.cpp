@@ -109,9 +109,9 @@ void Callbacks::NickChange(int id, unsigned char *data, unsigned short length)
 		buffer = Buffers::CoreBuffer;
 
 	if(strlen(name) == 0)
-		buffers->appendf((unsigned int) buffer, "[#] %d is now known as %s.", id, (length == 0 ? "(empty nick)" : data));
+		buffers->appendf((unsigned int) buffer, "[#] %d is now known as %s.", id, (length == 0 ? (unsigned char *)"(empty nick)" : data));
 	else
-		buffers->appendf((unsigned int) buffer, "[#] %s is now known as %s.", name, (length == 0 ? "(empty nick)" : data));
+		buffers->appendf((unsigned int) buffer, "[#] %s is now known as %s.", name, (length == 0 ? (unsigned char *)"(empty nick)" : data));
 
 	if(config->getBoolValue("bell.nick"))
 		std::cout << "\a" << std::flush;
