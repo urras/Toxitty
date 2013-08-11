@@ -63,6 +63,7 @@ class Commands
 		static void Online(const std::string &data);
 		static void Away(const std::string &data);
 		static void Busy(const std::string &data);
+		static void Save(const std::string &data);
 
 	private:
 		std::map<std::string, Command> m_commands;

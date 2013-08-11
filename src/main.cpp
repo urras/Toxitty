@@ -50,6 +50,7 @@ int main(int argc, char *argv[])
 	commands->add("away", "Sets your status to away.", Commands::Away);
 	commands->add("busy", "Sets your status to busy.", Commands::Busy);
 	commands->add("me", "Sends action message.", Commands::Me);
+	commands->add("save", "Saves current configuration.", Commands::Save);
 
 	keyHandler->addShortcut(KEY_UP, [] { input->prevHistory(buffers->getCurrent()); clear(); });
 	keyHandler->addShortcut(KEY_DOWN, [] { input->nextHistory(buffers->getCurrent()); clear(); });

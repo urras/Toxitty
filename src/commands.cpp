@@ -360,3 +360,9 @@ void Commands::Busy(const std::string &data)
 	else
 		buffers->appendf(Buffers::CoreBuffer, "[#] Your status is now busy (%s).", core->getStatusMessage().c_str());
 }
+
+void Commands::Save(const std::string &data)
+{
+	if(config->save())
+		buffers->append(Buffers::CoreBuffer, "[#] Configuration saved.");
+}
