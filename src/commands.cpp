@@ -166,7 +166,7 @@ void Commands::Add(const std::string &data)
 		if(parameters.size() == 2)
 			ret = m_addfriend((unsigned char *) publicKeyToData(parameters[0]).c_str(), (unsigned char *) parameters[1].c_str(), parameters[1].length() + 1);
 		else	
-			ret = m_addfriend((unsigned char *) publicKeyToData(parameters[0]).c_str(), (unsigned char *) "Friend Request", sizeof("Friend Request") + 1);
+			ret = m_addfriend((unsigned char *) publicKeyToData(parameters[0]).c_str(), (unsigned char *) "via Toxitty", sizeof("via Toxitty") + 1);
 
 		switch(ret)
 		{
