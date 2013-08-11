@@ -46,11 +46,11 @@ void Core::thread()
 			m_connected = true;
 
 			std::string nick = config->getValue("nick");
-			setname((unsigned char *) nick.c_str(), nick.length());
+			setname((unsigned char *) nick.c_str(), nick.length() + 1);
 			core->setNick(nick);
 
 			std::string status = config->getValue("status");
-			m_set_statusmessage((unsigned char *) status.c_str(), status.length());
+			m_set_statusmessage((unsigned char *) status.c_str(), status.length() + 1);
 			m_set_userstatus(USERSTATUS_NONE);
 
 			core->setStatusMessage(status);
