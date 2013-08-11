@@ -139,6 +139,9 @@ void Callbacks::StatusChange(int id, USERSTATUS status)
 
 void Callbacks::StatusMessageChange(int id, unsigned char *data, unsigned short length)
 {
+	if(length == 0)
+		return;
+
 	char name[MAX_NAME_LENGTH];
 	getname(id, (unsigned char *) name);
 
