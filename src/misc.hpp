@@ -21,10 +21,13 @@
 
 #include <ctime>
 #include <iomanip>
+#include <pwd.h>
 #include <regex>
 #include <sstream>
 #include <string>
 #include <vector>
+#include <sys/stat.h>
+#include <sys/types.h>
 
 #include "../tox/core/net_crypto.h"
 
@@ -41,5 +44,7 @@ std::string privateKeyToData(const std::string &key);
 
 std::string dataToPublicKey(const std::string &data);
 std::string dataToPrivateKey(const std::string &data);
+
+std::string getConfigDir();
 
 #endif

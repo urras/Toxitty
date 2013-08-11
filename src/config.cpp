@@ -30,7 +30,7 @@ Config::~Config()
 
 bool Config::load()
 {
-	std::ifstream data("config.json");
+	std::ifstream data(getConfigDir() + "config.json");
 	Json::Value root;
 	Json::Reader reader;
 
@@ -67,7 +67,7 @@ bool Config::load()
 
 bool Config::save()
 {
-	std::ofstream data("config.json");
+	std::ofstream data(getConfigDir() + "config.json");
 	Json::Value root;
 	Json::StyledWriter writer;
 

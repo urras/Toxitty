@@ -175,3 +175,16 @@ std::string dataToPrivateKey(const std::string &data)
 
 	return ret;
 }
+
+std::string getConfigDir()
+{
+	std::string ret;
+	struct passwd *pw = getpwuid(getuid());
+
+	ret += pw->pw_dir;
+	ret += "/.config/toxitty/";
+
+	mkdir(ret.c_str(), 0700);
+
+	return ret;
+}
