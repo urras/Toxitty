@@ -54,7 +54,10 @@ void Callbacks::Message(int id, unsigned char *data, unsigned short length)
 		buffers->appendf(Buffers::CoreBuffer, "[#] New conversation started with %s at buffer #%d (/buffer %d to switch).", name, buffer, buffer);
 	}
 
-	buffers->appendf(buffer, "[%s] <%s> %s", getTime(true).c_str(), name, data);
+	if(strlen(name) == 0)
+		buffers->appendf(buffer, "[%s] <%d> %s", getTime(true).c_str(), id, data);
+	else
+		buffers->appendf(buffer, "[%s] <%s> %s", getTime(true).c_str(), name, data);
 
 	if(config->getBoolValue("bell.message"))
 		std::cout << "\a" << std::flush;
@@ -79,7 +82,10 @@ void Callbacks::ActionMessage(int id, unsigned char *data, unsigned short length
 		buffers->appendf(Buffers::CoreBuffer, "[#] New conversation started with %s at buffer #%d (/buffer %d to switch).", name, buffer, buffer);
 	}
 
-	buffers->appendf(buffer, "[%s] * %s %s", getTime(true).c_str(), name, data);
+	if(strlen(name) == 0)
+		buffers->appendf(buffer, "[%s] * %d %s", getTime(true).c_str(), id, data);
+	else
+		buffers->appendf(buffer, "[%s] * %s %s", getTime(true).c_str(), name, data);
 
 	if(config->getBoolValue("bell.action"))
 		std::cout << "\a" << std::flush;
