@@ -51,7 +51,11 @@ void Callbacks::Message(int id, unsigned char *data, unsigned short length)
 		}
 
 		buffers->assign(buffer, id);
-		buffers->appendf(Buffers::CoreBuffer, "[#] New conversation started with %s at buffer #%d (/buffer %d to switch).", name, buffer, buffer);
+
+		if(strlen(name) == 0)
+			buffers->appendf(Buffers::CoreBuffer, "[#] New conversation started with %d at buffer #%d (/buffer %d to switch).", id, buffer, buffer);
+		else
+			buffers->appendf(Buffers::CoreBuffer, "[#] New conversation started with %s at buffer #%d (/buffer %d to switch).", name, buffer, buffer);
 	}
 
 	if(strlen(name) == 0)
@@ -79,7 +83,11 @@ void Callbacks::ActionMessage(int id, unsigned char *data, unsigned short length
 		}
 
 		buffers->assign(buffer, id);
-		buffers->appendf(Buffers::CoreBuffer, "[#] New conversation started with %s at buffer #%d (/buffer %d to switch).", name, buffer, buffer);
+
+		if(strlen(name) == 0)
+			buffers->appendf(Buffers::CoreBuffer, "[#] New conversation started with %d at buffer #%d (/buffer %d to switch).", id, buffer, buffer);
+		else
+			buffers->appendf(Buffers::CoreBuffer, "[#] New conversation started with %s at buffer #%d (/buffer %d to switch).", name, buffer, buffer);
 	}
 
 	if(strlen(name) == 0)
