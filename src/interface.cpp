@@ -27,7 +27,7 @@ Interface::Interface()
 	height = 0;
 	running = false;
 
-	for (unsigned int i = 0; i < Buffers::MaxBuffers; ++i)
+	for(unsigned int i = 0; i < Buffers::MaxBuffers; ++i)
 	{
 		m_bufferScroll[i] = 0;
 	}

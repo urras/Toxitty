@@ -29,7 +29,8 @@ void Callbacks::FriendRequest(unsigned char *key, unsigned char *data, unsigned 
 	else
 		buffers->appendf(Buffers::CoreBuffer, "[#] New friend request received with message: %s", (char *) data);
 
-	buffers->appendf(Buffers::CoreBuffer, "[#] Accept with /accept %d.", requests);
+	buffers->appendf(Buffers::CoreBuffer, "    Sender ID: %s", dataToPublicKey(key).c_str());
+	buffers->appendf(Buffers::CoreBuffer, "    Accept with /accept %d.", requests);
 
 	if(config->getBoolValue("bell.request"))
 		std::cout << "\a" << std::flush;
