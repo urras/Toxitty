@@ -168,6 +168,9 @@ void Buffers::setCurrent(unsigned int buffer)
 	if(buffer < 0 || buffer >= Buffers::MaxBuffers)
 		return;
 
+	if(m_assign[buffer] == -1)
+		return;
+
 	m_current = buffer;
 
 	if(m_active[buffer])
@@ -191,6 +194,9 @@ void Buffers::prev()
 {
 	if(m_current > 0)
 	{
+		if(m_assign[m_current - 1] == -1)
+			return;
+
 		--m_current;
 
 		if(m_active[m_current])
@@ -202,6 +208,9 @@ void Buffers::next()
 {
 	if(m_current < Buffers::MaxBuffers - 1)
 	{
+		if(m_assign[m_current + 1] == -1)
+			return;
+
 		++m_current;
 
 		if(m_active[m_current])
